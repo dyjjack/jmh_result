@@ -1,17 +1,27 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <el-row>
+      <el-col :span="12"><PullRequest></PullRequest></el-col>
+      <el-col :span="12"><ScheduledTask></ScheduledTask></el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="24"><HelloWorld></HelloWorld></el-col>
+    </el-row>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import PullRequest from "@/components/PullRequest.vue";
+import ScheduledTask from "@/components/ScheduledTask.vue";
+import HelloWorld from "@/components/HelloWorld.vue";
+
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HelloWorld,
+    ScheduledTask,
+    PullRequest
   }
 }
 </script>
@@ -23,6 +33,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  //margin-top: 60px;
 }
 </style>
