@@ -1,59 +1,43 @@
 <template>
   <div>
-    <el-select
-        v-model="ExpandedNum"
-        @change="handleExpandNumChange"
-        placeholder="选择展开级别"
-        size="mini"
-        style="width: 100px;left: 0px;"
-    >
-      <el-option label="不展开" :value="0"></el-option>
-      <el-option label="展开" :value="Number.MAX_VALUE"></el-option>
-    </el-select>
 
-    <el-table
-        :data="tableData"
-        style="width: 100%"
-        :key="tableKey"
-        row-key="spanId_"
-        :expand-row-keys="expandID"
-        border
-        lazy
-        :tree-props="{children: 'children'}"
-    >
-      <el-table-column prop="operationName_" label="日期"></el-table-column>
-      <el-table-column prop="cost" label="耗时（ms）"></el-table-column>
+    <el-table :data="tableData" border style="width: 100%">
+      <el-table-column label="指标" width="180">
+        <template slot-scope="scope">
+          {{ scope.row['dubbo.protocol.serialization'] }}
+        </template>
+      </el-table-column>
+      <el-table-column>
+        <template slot-scope="{row}">
+          <el-table
+              :data="createSpanTree(row.spans_)"
+              style="width: 100%"
+              row-key="spanId_"
+              border
+              lazy
+              :tree-props="{children: 'children'}"
+          >
+            <el-table-column prop="operationName_" label="日期"></el-table-column>
+            <el-table-column prop="cost" label="耗时（ms）"></el-table-column>
+          </el-table>
+        </template>
+      </el-table-column>
     </el-table>
-
   </div>
 </template>
 
 <script>
 export default {
   name: 'TraceDetail',
+  props: {
+    url: String
+  },
   data() {
     return {
-      ExpandedNum: 0,
-      tableKey: true,
-      expandID: [],
       tableData: []
     }
   },
-  watch: {
-    ExpandedNum: {
-      deep: true,
-      handler(val) {
-        this.ExpandedNum = val
-      }
-    },
 
-    ExpandedKeysCache: {
-      deep: true,
-      handler(val) {
-        this.ExpandedKeysCache = val
-      }
-    },
-  },
   mounted() {
     this.initTable();
   },
@@ -81,37 +65,11 @@ export default {
         return
       }
 
-      this.tableData = this.createSpanTree(resultList[0].spans_)
+      this.tableData = resultList;
     },
 
-    handleExpandNumChange() {
-
-      this.expandID=[]
-      this.tableKey = !this.tableKey;
-
-      console.error("1：", this.ExpandedNum);
-      console.error("2：", this.expandID);
-      if (this.ExpandedNum > 0) {
-        this.setExpandKeys(this.tableData)
-      }
-      console.error("3：", this.ExpandedNum);
-      console.error("4：", this.expandID);
-    },
-    setExpandKeys(dataList, n) {
-      console.error("4：", this.expandID);
-      if (!n) n = 1
-      for (let i = 0; i < dataList.length; i++) {
-        if (n <= this.ExpandedNum) {
-          this.expandID.push(`${dataList[i].spanId_}`)
-
-          if (Object.prototype.hasOwnProperty.call(dataList[i], 'children')) {
-            const children = dataList[i].children
-            this.setExpandKeys(children, n + 1)
-          }
-        }
-      }
-    },
     createSpanTree(spans) {
+      console.log(spans)
       let spanMap = new Map();
       let rootSpans = [];
 
@@ -138,6 +96,7 @@ export default {
         }
       }
 
+      console.log(rootSpans)
       return rootSpans;
     }
   }
