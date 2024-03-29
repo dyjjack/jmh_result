@@ -71,7 +71,7 @@ export default {
 
       let option = {
         title: {
-          text: 'RPC对比',
+          text: 'Serialization对比',
           x: 'center'
         },
         tooltip: {
