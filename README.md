@@ -1,4 +1,4 @@
-# my-app
+# dubbo benchmark
 
 ## Project setup
 ```
