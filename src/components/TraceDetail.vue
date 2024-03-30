@@ -19,10 +19,11 @@
             row-key="spanId_"
             border
             lazy
+            default-expand-all
             :tree-props="{children: 'children'}"
         >
-          <el-table-column prop="operationName_" label="方法名"></el-table-column>
-          <el-table-column prop="cost" label="耗时（ms）"></el-table-column>
+          <el-table-column prop="operationName_" label="方法名" min-width="90%"></el-table-column>
+          <el-table-column prop="cost" label="耗时（ms）" min-width="10%"></el-table-column>
         </el-table>
       </el-col>
 
@@ -36,10 +37,11 @@
             row-key="spanId_"
             border
             lazy
+            default-expand-all
             :tree-props="{children: 'children'}"
         >
-          <el-table-column prop="operationName_" label="方法名"></el-table-column>
-          <el-table-column prop="cost" label="耗时（ms）"></el-table-column>
+          <el-table-column prop="operationName_" label="方法名" min-width="90%"></el-table-column>
+          <el-table-column prop="cost" label="耗时（ms）" min-width="10%"></el-table-column>
         </el-table>
       </el-col>
     </el-row>
