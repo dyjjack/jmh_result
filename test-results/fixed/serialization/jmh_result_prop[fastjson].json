@@ -7,7 +7,7 @@
         "forks" : 1,
         "jvm" : "/usr/local/openjdk-8/jre/bin/java",
         "jvmArgs" : [
-            "-javaagent:/usr/local/dubbo/jacocoagent.jar=destfile=/usr/local/dubbo/target-jacoco/1-1711798334405-jacoco.exec",
+            "-javaagent:/usr/local/dubbo/jacocoagent.jar=destfile=/usr/local/dubbo/target-jacoco/1-1711812300539-jacoco.exec",
             "-javaagent:/tmp/skywalking-agent/skywalking-agent.jar",
             "-Dzookeeper.address=zookeeper",
             "-Dskywalking.agent.service_name=dubbo-samples-benchmark-consumer",
@@ -29,31 +29,31 @@
         "measurementBatchSize" : 1,
         "params" : {
             "dubbo.protocol.serialization" : "fastjson",
-            "time" : "1711798385985"
+            "time" : "1711812338220"
         },
         "primaryMetric" : {
-            "score" : 46.00949071420325,
+            "score" : 29.0052460562883,
             "scoreError" : "NaN",
             "scoreConfidence" : [
                 "NaN",
                 "NaN"
             ],
             "scorePercentiles" : {
-                "0.0" : 46.00949071420325,
-                "50.0" : 46.00949071420325,
-                "90.0" : 46.00949071420325,
-                "95.0" : 46.00949071420325,
-                "99.0" : 46.00949071420325,
-                "99.9" : 46.00949071420325,
-                "99.99" : 46.00949071420325,
-                "99.999" : 46.00949071420325,
-                "99.9999" : 46.00949071420325,
-                "100.0" : 46.00949071420325
+                "0.0" : 29.0052460562883,
+                "50.0" : 29.0052460562883,
+                "90.0" : 29.0052460562883,
+                "95.0" : 29.0052460562883,
+                "99.0" : 29.0052460562883,
+                "99.9" : 29.0052460562883,
+                "99.99" : 29.0052460562883,
+                "99.999" : 29.0052460562883,
+                "99.9999" : 29.0052460562883,
+                "100.0" : 29.0052460562883
             },
             "scoreUnit" : "ms/op",
             "rawData" : [
                 [
-                    46.00949071420325
+                    29.0052460562883
                 ]
             ]
         },
