@@ -7,7 +7,7 @@
         "forks" : 1,
         "jvm" : "/usr/local/openjdk-8/jre/bin/java",
         "jvmArgs" : [
-            "-javaagent:/usr/local/dubbo/jacocoagent.jar=destfile=/usr/local/dubbo/target-jacoco/1-1711816156584-jacoco.exec",
+            "-javaagent:/usr/local/dubbo/jacocoagent.jar=destfile=/usr/local/dubbo/target-jacoco/1-1711819321718-jacoco.exec",
             "-javaagent:/tmp/skywalking-agent/skywalking-agent.jar",
             "-Dzookeeper.address=zookeeper",
             "-Dskywalking.agent.service_name=dubbo-samples-benchmark-consumer",
@@ -29,31 +29,31 @@
         "measurementBatchSize" : 1,
         "params" : {
             "dubbo.protocol.serialization" : "fst",
-            "time" : "1711816195345"
+            "time" : "1711819360731"
         },
         "primaryMetric" : {
-            "score" : 41.06639108818743,
+            "score" : 36.46285711732771,
             "scoreError" : "NaN",
             "scoreConfidence" : [
                 "NaN",
                 "NaN"
             ],
             "scorePercentiles" : {
-                "0.0" : 41.06639108818743,
-                "50.0" : 41.06639108818743,
-                "90.0" : 41.06639108818743,
-                "95.0" : 41.06639108818743,
-                "99.0" : 41.06639108818743,
-                "99.9" : 41.06639108818743,
-                "99.99" : 41.06639108818743,
-                "99.999" : 41.06639108818743,
-                "99.9999" : 41.06639108818743,
-                "100.0" : 41.06639108818743
+                "0.0" : 36.46285711732771,
+                "50.0" : 36.46285711732771,
+                "90.0" : 36.46285711732771,
+                "95.0" : 36.46285711732771,
+                "99.0" : 36.46285711732771,
+                "99.9" : 36.46285711732771,
+                "99.99" : 36.46285711732771,
+                "99.999" : 36.46285711732771,
+                "99.9999" : 36.46285711732771,
+                "100.0" : 36.46285711732771
             },
             "scoreUnit" : "ms/op",
             "rawData" : [
                 [
-                    41.06639108818743
+                    36.46285711732771
                 ]
             ]
         },
