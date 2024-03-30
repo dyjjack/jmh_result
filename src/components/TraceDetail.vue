@@ -1,41 +1,145 @@
 <template>
   <div>
+    <el-cascader :show-all-levels="false"
+                 :props="props"
+                 v-model="selectedOptions"
+                 :options="cascaderOptions"
+                 @change="handleCascaderChange"
+                 clearable>
 
-    <el-table :data="tableData" border style="width: 100%">
-      <el-table-column label="指标" width="180">
-        <template slot-scope="scope">
-          {{ scope.row['dubbo.protocol.serialization'] }}
-        </template>
-      </el-table-column>
-      <el-table-column>
-        <template slot-scope="{row}">
-          <el-table
-              :data="createSpanTree(row.spans_)"
-              style="width: 100%"
-              row-key="spanId_"
-              border
-              lazy
-              :tree-props="{children: 'children'}"
-          >
-            <el-table-column prop="operationName_" label="日期"></el-table-column>
-            <el-table-column prop="cost" label="耗时（ms）"></el-table-column>
-          </el-table>
-        </template>
-      </el-table-column>
-    </el-table>
+    </el-cascader>
+    <el-row>
+      <el-col :span="12">
+        <el-header>
+          <h1>{{ leftTableTitle }}</h1>
+        </el-header>
+        <el-table
+            :data="leftTableDate"
+            style="width: 100%"
+            row-key="spanId_"
+            border
+            lazy
+            :tree-props="{children: 'children'}"
+        >
+          <el-table-column prop="operationName_" label="方法名"></el-table-column>
+          <el-table-column prop="cost" label="耗时（ms）"></el-table-column>
+        </el-table>
+      </el-col>
+
+      <el-col :span="12">
+        <el-header>
+          <h1>{{ rightTableTitle }}</h1>
+        </el-header>
+        <el-table
+            :data="rightTableDate"
+            style="width: 100%"
+            row-key="spanId_"
+            border
+            lazy
+            :tree-props="{children: 'children'}"
+        >
+          <el-table-column prop="operationName_" label="方法名"></el-table-column>
+          <el-table-column prop="cost" label="耗时（ms）"></el-table-column>
+        </el-table>
+      </el-col>
+    </el-row>
+
+    <!--    <el-table :data="tableData" border style="width: 100%">-->
+    <!--      <el-table-column label="指标" width="180">-->
+    <!--        <template slot-scope="scope">-->
+    <!--          {{ scope.row['dubbo.protocol.serialization'] }}-->
+    <!--        </template>-->
+    <!--      </el-table-column>-->
+    <!--      <el-table-column>-->
+    <!--        <template slot-scope="{row}">-->
+    <!--          <el-table-->
+    <!--              :data="createSpanTree(row.spans_)"-->
+    <!--              style="width: 100%"-->
+    <!--              row-key="spanId_"-->
+    <!--              border-->
+    <!--              lazy-->
+    <!--              :tree-props="{children: 'children'}"-->
+    <!--          >-->
+    <!--            <el-table-column prop="operationName_" label="日期"></el-table-column>-->
+    <!--            <el-table-column prop="cost" label="耗时（ms）"></el-table-column>-->
+    <!--          </el-table>-->
+    <!--        </template>-->
+    <!--      </el-table-column>-->
+    <!--    </el-table>-->
   </div>
 </template>
 
 <script>
 export default {
   name: 'TraceDetail',
-  props: {
-    url: String
-  },
   data() {
     return {
-      tableData: []
-    }
+      rpcTable: [],
+      serializationTable: [],
+      leftTableTitle: '',
+      leftTableDate: [],
+      rightTableDate: [],
+      rightTableTitle: '',
+
+      selectedOptions: [],
+      disabledRoots: [],
+      disabledChildren: [],
+      props: {multiple: true},
+      cascaderOptions: [{
+        value: 'rpc',
+        label: 'RPC 协议',
+        children: [{
+          value: 'dubbo',
+          label: 'Dubbo协议',
+        }, {
+          value: 'rmi',
+          label: 'Rmi协议'
+        }, {
+          value: 'tri',
+          label: 'Triple协议'
+        }]
+      }, {
+        value: 'serialization',
+        label: '序列化',
+        children: [{
+          value: 'hessian2',
+          label: 'Hessian2'
+        }, {
+          value: 'fastjson2',
+          label: 'Fastjson2'
+        }, {
+          value: 'kryo',
+          label: 'Kryo'
+        }]
+      }],
+      tmpCascaderOptions: [{
+        value: 'rpc',
+        label: 'RPC 协议',
+        children: [{
+          value: 'dubbo',
+          label: 'Dubbo协议',
+        }, {
+          value: 'rmi',
+          label: 'Rmi协议'
+        }, {
+          value: 'tri',
+          label: 'Triple协议'
+        }]
+      }, {
+        value: 'serialization',
+        label: '序列化',
+        children: [{
+          value: 'hessian2',
+          label: 'Hessian2'
+        }, {
+          value: 'fastjson2',
+          label: 'Fastjson2'
+        }, {
+          value: 'kryo',
+          label: 'Kryo'
+        }]
+      }]
+    };
   },
 
   mounted() {
@@ -44,29 +148,42 @@ export default {
 
   methods: {
     initTable() {
-      let traceSpan;
 
+      let rpcResultList;
       this.$.ajax({
         type: "GET",
         async: false,
-        url: "https://raw.kkgithub.com/wxbty/jmh_result/main/test-results/trace/jmh_trace_result.json",
+        url: "https://raw.githubusercontent.com/wxbty/jmh_result/main/test-results/fixed/rpc/merged_prop_traces.json",
         success: function (res) {
-          traceSpan = res
+          rpcResultList = res
         }
       });
 
-
-      // 解析JMH结果字符串为JSON对象
-      let resultList;
       try {
-        resultList = JSON.parse(traceSpan);
+        this.rpcTable = JSON.parse(rpcResultList)
+        console.log("this.rpcTable", this.rpcTable)
       } catch (error) {
         console.error("解析JMH结果字符串出错：", error);
-        return
       }
 
-      this.tableData = resultList;
-    },
+      let serializationResultList;
+      this.$.ajax({
+        type: "GET",
+        async: false,
+        url: "https://raw.githubusercontent.com/wxbty/jmh_result/main/test-results/fixed/serialization/merged_prop_traces.json",
+        success: function (res) {
+          serializationResultList = res;
+        }
+      });
+
+      try {
+        this.serializationTable = JSON.parse(serializationResultList)
+        console.log("this.serializationResultList", this.serializationTable)
+      } catch (error) {
+        console.error("解析JMH结果字符串出错：", error);
+      }
+    }
+    ,
 
     createSpanTree(spans) {
       console.log(spans)
@@ -98,6 +215,107 @@ export default {
 
       console.log(rootSpans)
       return rootSpans;
+    },
+
+    handleCascaderChange(value) {
+      console.log("this.value", value)
+      console.log("this.selectedOptions", this.selectedOptions)
+      let selectedRoot
+
+      this.cascaderOptions = this.deepCopy2DArray(this.tmpCascaderOptions)
+      if (value != null && value.length > 0) {
+        // 当用户选择一个根节点时，禁用其他根节点
+        selectedRoot = this.cascaderOptions.find(item => item.value === value[0][0]);
+      }
+
+      if (selectedRoot) {
+        this.disabledRoots = this.cascaderOptions
+            .filter(item => item.value !== selectedRoot.value)
+            .map(item => item.value);
+
+
+        if (value.length > 2) {
+
+          this.selectedOptions.splice(2)
+          value = this.selectedOptions
+          let myValue = value.map(item => item[1])
+          this.disabledChildren = selectedRoot.children.filter(((item, index) => index >= 2 && !myValue.includes(item.value))).map(item => item.value);
+
+        } else if (value.length === 2) {
+
+          let myValue = value.map(item => item[1])
+          this.disabledChildren = selectedRoot.children.filter(item => !myValue.includes(item.value)).map(item => item.value);
+
+        } else {
+
+          this.disabledChildren = []
+
+        }
+      } else {
+        // 如果用户取消了选择，或者选择了子节点，重置禁用状态
+        this.disabledRoots = [];
+        this.disabledChildren = []
+      }
+
+      this.updateCascaderOptions(selectedRoot);
+
+      this.updateTable();
+    },
+
+    updateCascaderOptions(selectedRoot) {
+      // 根据禁用状态数组，动态修改数据源
+      if (selectedRoot) {
+        selectedRoot.children = selectedRoot.children.map(item => ({
+          ...item,
+          disabled: this.disabledChildren.includes(item.value),
+        }));
+      }
+
+      this.cascaderOptions = this.cascaderOptions.map(item => ({
+        ...item,
+        disabled: this.disabledRoots.includes(item.value),
+      }));
+    },
+
+    deepCopy2DArray(arr) {
+      return JSON.parse(JSON.stringify(arr));
+    },
+
+    updateTable() {
+      if (this.selectedOptions == null || this.selectedOptions.length === 0) {
+        this.leftTableDate = []
+        this.rightTableDate = []
+
+        this.leftTableTitle = ''
+        this.rightTableTitle = ''
+
+        return
+      }
+
+      let type = this.selectedOptions[0][0];
+      let value = this.selectedOptions.map(item => item[1])
+
+      if (type === 'rpc') {
+        let leftRpcFilter = this.rpcTable.find(item => value[0] === item['dubbo.protocol.name']);
+        let rightRpcFilter = this.rpcTable.find(item => value[1] === item['dubbo.protocol.name']);
+
+        this.leftTableDate = leftRpcFilter ? this.createSpanTree(leftRpcFilter.spans_) : []
+        this.rightTableDate = rightRpcFilter ? this.createSpanTree(rightRpcFilter.spans_) : []
+
+        this.leftTableTitle = leftRpcFilter ? leftRpcFilter['dubbo.protocol.name'] : ''
+        this.rightTableTitle = rightRpcFilter ? rightRpcFilter['dubbo.protocol.name'] : ''
+      }
+
+      if (type === 'serialization') {
+        let leftRpcFilter = this.rpcTable.find(item => value[0] === item['dubbo.protocol.serialization']);
+        let rightRpcFilter = this.rpcTable.find(item => value[1] === item['dubbo.protocol.serialization']);
+
+        this.leftTableDate = leftRpcFilter ? this.createSpanTree(leftRpcFilter.spans_) : []
+        this.rightTableDate = rightRpcFilter ? this.createSpanTree(rightRpcFilter.spans_) : []
+
+        this.leftTableTitle = leftRpcFilter ? leftRpcFilter['dubbo.protocol.serialization'] : ''
+        this.rightTableTitle = rightRpcFilter ? rightRpcFilter['dubbo.protocol.serialization'] : ''
+      }
     }
   }
 }
