@@ -1,0 +1,62 @@
+[
+    {
+        "jmhVersion" : "1.37",
+        "benchmark" : "org.apache.dubbo.benchmark.demo.test.ConsumerIT.MyBenchmark.getUser",
+        "mode" : "avgt",
+        "threads" : 16,
+        "forks" : 1,
+        "jvm" : "/usr/local/openjdk-8/jre/bin/java",
+        "jvmArgs" : [
+            "-javaagent:/usr/local/dubbo/jacocoagent.jar=destfile=/usr/local/dubbo/target-jacoco/1-1711802092102-jacoco.exec",
+            "-Dzookeeper.address=zookeeper",
+            "-Ddubbo.version=3.2.12-SNAPSHOT",
+            "-Dspring.version=5.0",
+            "-Djava.version=8",
+            "-Ddubbo.protocol.serialization=hessian2",
+            "-Ddubbo.protocol.serialization=\"-Ddubbo.protocol.serialization=hessian2\""
+        ],
+        "jdkVersion" : "1.8.0_342",
+        "vmName" : "OpenJDK 64-Bit Server VM",
+        "vmVersion" : "25.342-b07",
+        "warmupIterations" : 1,
+        "warmupTime" : "1 s",
+        "warmupBatchSize" : 1,
+        "measurementIterations" : 1,
+        "measurementTime" : "1 s",
+        "measurementBatchSize" : 1,
+        "params" : {
+            "dubbo.protocol.serialization" : "hessian2",
+            "time" : "1711802113888"
+        },
+        "primaryMetric" : {
+            "score" : 13.902279907451357,
+            "scoreError" : "NaN",
+            "scoreConfidence" : [
+                "NaN",
+                "NaN"
+            ],
+            "scorePercentiles" : {
+                "0.0" : 13.902279907451357,
+                "50.0" : 13.902279907451357,
+                "90.0" : 13.902279907451357,
+                "95.0" : 13.902279907451357,
+                "99.0" : 13.902279907451357,
+                "99.9" : 13.902279907451357,
+                "99.99" : 13.902279907451357,
+                "99.999" : 13.902279907451357,
+                "99.9999" : 13.902279907451357,
+                "100.0" : 13.902279907451357
+            },
+            "scoreUnit" : "ms/op",
+            "rawData" : [
+                [
+                    13.902279907451357
+                ]
+            ]
+        },
+        "secondaryMetrics" : {
+        }
+    }
+]
+
+
