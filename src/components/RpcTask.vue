@@ -25,7 +25,7 @@ export default {
       this.$.ajax({
         type: 'GET',
         async: false,
-        url: 'https://raw.githubusercontent.com/dyjjack/jmh_result/main/test-results/fixed/rpc/merged_prop_results.json',
+        url: 'https://raw.githubusercontent.com/wxbty/jmh_result/main/test-results/fixed/rpc/merged_prop_results.json',
         success: function (res) {
           jmh = res;
         }
