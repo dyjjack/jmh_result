@@ -136,9 +136,24 @@ export default {
         }, {
           value: 'fastjson2',
           label: 'Fastjson2'
-        }, {
+        },{
+          value: 'fastjson',
+          label: 'Fastjson'
+        },{
+          value: 'avro',
+          label: 'Avro'
+        },{
+          value: 'fst',
+          label: 'Fst'
+        },{
+          value: 'gson',
+          label: 'Gson'
+        },{
           value: 'kryo',
           label: 'Kryo'
+        }, {
+          value: 'msgpack',
+          label: 'Msgpack'
         }]
       }]
     };
@@ -155,7 +170,7 @@ export default {
       this.$.ajax({
         type: "GET",
         async: false,
-        url: "https://raw.githubusercontent.com/wxbty/jmh_result/main/test-results/fixed/rpc/merged_prop_traces.json",
+        url: "https://raw.githubusercontent.com/dyjjack/jmh_result/main/test-results/fixed/rpc/merged_prop_traces.json",
         success: function (res) {
           rpcResultList = res
         }
@@ -172,7 +187,7 @@ export default {
       this.$.ajax({
         type: "GET",
         async: false,
-        url: "https://raw.githubusercontent.com/wxbty/jmh_result/main/test-results/fixed/serialization/merged_prop_traces.json",
+        url: "https://raw.githubusercontent.com/dyjjack/jmh_result/main/test-results/fixed/serialization/merged_prop_traces.json",
         success: function (res) {
           serializationResultList = res;
         }
@@ -309,14 +324,14 @@ export default {
       }
 
       if (type === 'serialization') {
-        let leftRpcFilter = this.rpcTable.find(item => value[0] === item['dubbo.protocol.serialization']);
-        let rightRpcFilter = this.rpcTable.find(item => value[1] === item['dubbo.protocol.serialization']);
+        let leftSerializationFilter = this.serializationTable.find(item => value[0] === item['dubbo.protocol.serialization']);
+        let rightSerializationFilter = this.serializationTable.find(item => value[1] === item['dubbo.protocol.serialization']);
 
-        this.leftTableDate = leftRpcFilter ? this.createSpanTree(leftRpcFilter.spans_) : []
-        this.rightTableDate = rightRpcFilter ? this.createSpanTree(rightRpcFilter.spans_) : []
+        this.leftTableDate = leftSerializationFilter ? this.createSpanTree(leftSerializationFilter.spans_) : []
+        this.rightTableDate = rightSerializationFilter ? this.createSpanTree(rightSerializationFilter.spans_) : []
 
-        this.leftTableTitle = leftRpcFilter ? leftRpcFilter['dubbo.protocol.serialization'] : ''
-        this.rightTableTitle = rightRpcFilter ? rightRpcFilter['dubbo.protocol.serialization'] : ''
+        this.leftTableTitle = leftSerializationFilter ? leftSerializationFilter['dubbo.protocol.serialization'] : ''
+        this.rightTableTitle = rightSerializationFilter ? rightSerializationFilter['dubbo.protocol.serialization'] : ''
       }
     }
   }
