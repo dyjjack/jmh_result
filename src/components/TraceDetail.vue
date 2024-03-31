@@ -109,9 +109,24 @@ export default {
         }, {
           value: 'fastjson2',
           label: 'Fastjson2'
-        }, {
+        },{
+          value: 'fastjson',
+          label: 'Fastjson'
+        },{
+          value: 'avro',
+          label: 'Avro'
+        },{
+          value: 'fst',
+          label: 'Fst'
+        },{
+          value: 'gson',
+          label: 'Gson'
+        },{
           value: 'kryo',
           label: 'Kryo'
+        }, {
+          value: 'msgpack',
+          label: 'Msgpack'
         }]
       }],
       tmpCascaderOptions: [{
