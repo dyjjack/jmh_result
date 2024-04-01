@@ -25,7 +25,7 @@ export default {
       this.$.ajax({
         type: 'GET',
         async: false,
-        url: 'https://raw.githubusercontent.com/wxbty/jmh_result/main/test-results/fixed/serialization/merged_prop_results.json',
+        url: 'https://raw.kkgithub.com/dyjjack/jmh_result/main/test-results/fixed/serialization/merged_prop_results.json',
         success: function (res) {
           jmh = res;
         }
@@ -47,14 +47,17 @@ export default {
         console.error('解析JMH结果字符串出错：', error);
       }
 
+      let time = resultList[0].params.time
+
+      console.log(resultList)
 // 转换数据结构，按serialization属性分类并收集Item对象
       let collect = resultList
-          .filter((a) => a.mode === 'avgt')
+          .filter((a) => a.mode === 'ss')
           .map((result) => {
             // 注意这里只用一个参数接收当前元素
-            let protocol = result.params['dubbo.protocol.serialization'];
+            let protocol = JSON.parse(result.params.prop)['dubbo.protocol.serialization'];
             return {
-              score: Math.round(result.primaryMetric.score),
+              score: Math.round(result.primaryMetric.scorePercentiles['99.0']),
               protocol: protocol
             };
           });
@@ -72,7 +75,8 @@ export default {
       let option = {
         title: {
           text: 'Serialization对比',
-          x: 'center'
+          x: 'center',
+          subtext: this.timestampToTime(time)
         },
         tooltip: {
           trigger: 'axis',
@@ -125,6 +129,18 @@ export default {
 
       // 使用刚指定的配置项和数据显示图表。
       myChart.setOption(option);
+    },
+
+    timestampToTime(timestamp) {
+      let date = new Date(Number(timestamp));
+      let Y = date.getFullYear() + '-';
+      let M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+      let D = date.getDate() + ' ';
+      let h = date.getHours() + ':';
+      let m = date.getMinutes() + ':';
+      let s = date.getSeconds();
+
+      return Y + M + D + h + m + s;
     }
   }
 }

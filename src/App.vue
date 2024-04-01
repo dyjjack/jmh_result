@@ -1,6 +1,9 @@
 <template>
   <div id="app">
     <el-row>
+      <el-col :span="24"><div style="font-size: 30px">2核7GB</div></el-col>
+    </el-row>
+    <el-row>
       <el-col :span="12"><PullRequest></PullRequest></el-col>
       <el-col :span="12"><ScheduledTask></ScheduledTask></el-col>
     </el-row>

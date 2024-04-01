@@ -1,8 +1,6 @@
 <template>
   <div>
-    <el-cascader :show-all-levels="false"
-                 :props="props"
-                 v-model="selectedOptions"
+    <el-cascader v-model="selectedOptions"
                  :options="cascaderOptions"
                  @change="handleCascaderChange"
                  clearable>
@@ -86,7 +84,7 @@ export default {
       selectedOptions: [],
       disabledRoots: [],
       disabledChildren: [],
-      props: {multiple: true},
+
       cascaderOptions: [{
         value: 'rpc',
         label: 'RPC 协议',
