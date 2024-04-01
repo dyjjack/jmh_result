@@ -1,5 +1,6 @@
 <template>
   <div>
+    <span>选择两个配置对比</span>
     <el-cascader :show-all-levels="false"
                  :props="props"
                  v-model="selectedOptions"

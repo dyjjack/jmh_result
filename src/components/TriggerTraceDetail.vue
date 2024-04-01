@@ -1,34 +1,28 @@
 <template>
   <div>
     <el-row>
-      <el-col :span="8">
+      <el-button type="primary" @click="open">触发Actions</el-button>
+    </el-row>
+
+    <el-row>
+      <el-col :span="12">
+        <span>选择具体配置</span>
         <el-cascader v-model="leftSelectedOptions"
                      :options="cascaderOptions"
                      @change="handleCascaderChange"
                      clearable>
 
         </el-cascader>
+        <div id="TriggerP99" style="width:100%;height:400px"></div>
       </el-col>
-
-      <el-col :span="8">
-        <el-button type="primary" @click="open">触发Actions</el-button>
-      </el-col>
-
-      <el-col :span="8">
+      <el-col :span="12">
+        <span>选择具体配置</span>
         <el-cascader v-model="rightSelectedOptions"
                      :options="cascaderOptions"
                      @change="handleCascaderChange"
                      clearable>
 
         </el-cascader>
-      </el-col>
-    </el-row>
-
-    <el-row>
-      <el-col :span="12">
-        <div id="TriggerP99" style="width:100%;height:400px"></div>
-      </el-col>
-      <el-col :span="12">
         <div id="TriggerQps" style="width:100%;height:400px"></div>
       </el-col>
     </el-row>
@@ -179,10 +173,26 @@ export default {
   },
 
   mounted() {
-    this.init();
-    this.initTable();
-    this.sampleEcharts();
-    this.thrptEcharts();
+    try {
+      this.init();
+    } catch (error) {
+      console.error("init：", error);
+    }
+    try {
+      this.initTable();
+    } catch (error) {
+      console.error("initTable：", error);
+    }
+    try {
+      this.sampleEcharts();
+    } catch (error) {
+      console.error("sampleEcharts：", error);
+    }
+    try {
+      this.thrptEcharts();
+    } catch (error) {
+      console.error("thrptEcharts：", error);
+    }
   },
 
   methods: {
@@ -396,7 +406,7 @@ export default {
       this.$.ajax({
         type: "GET",
         async: false,
-        url: "https://raw.githubusercontent.com/wxbty/jmh_result/main/test-results/fixed/scenario/merged_prop_traces.json",
+        url: "https://raw.githubusercontent.com/wxbty/jmh_result/main/test-results/scenario/merged_prop_traces.json",
         success: function (res) {
           rpcResultList = res
         }
@@ -409,11 +419,11 @@ export default {
         console.error("解析JMH结果字符串出错：", error);
       }
 
-      this.leftTableDate = this.createSpanTree(this.triggerTable[0].spans_)
-      this.rightTableDate = this.createSpanTree(this.triggerTable[1].spans_)
+      this.leftTableDate = this.createSpanTree(this.triggerTable != null && this.triggerTable.length > 0 ? this.triggerTable[0].spans_ : [])
+      this.rightTableDate = this.createSpanTree(this.triggerTable != null && this.triggerTable.length > 1 ? this.triggerTable[1].spans_ : [])
 
-      this.leftTableTitle = this.triggerTable[0].prop
-      this.rightTableTitle = this.triggerTable[1].prop
+      this.leftTableTitle = this.triggerTable != null && this.triggerTable.length > 0 ? this.triggerTable[0].prop : ""
+      this.rightTableTitle = this.triggerTable != null && this.triggerTable.length > 1 ? this.triggerTable[1].prop : ""
     }
     ,
 
