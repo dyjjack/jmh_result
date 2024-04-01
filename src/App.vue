@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <el-row>
-      <el-col :span="24"><div style="font-size: 30px">2核7GB</div></el-col>
+      <el-col :span="24"><div style="font-size: 30px">Ubuntu 2核4线程7GB内存</div></el-col>
     </el-row>
     <el-row>
       <el-col :span="12"><PullRequest></PullRequest></el-col>
@@ -14,6 +14,9 @@
     <el-row>
       <el-col :span="24"><TraceDetail></TraceDetail></el-col>
     </el-row>
+    <el-row>
+      <el-col :span="24"><trigger-trace-detail></trigger-trace-detail></el-col>
+    </el-row>
   </div>
 </template>
 
@@ -23,6 +26,7 @@ import ScheduledTask from "@/components/ScheduledTask.vue";
 import TraceDetail from "@/components/TraceDetail.vue";
 import RpcTask from "@/components/RpcTask.vue";
 import SerializationTask from "@/components/SerializationTask.vue";
+import TriggerTraceDetail from "@/components/TriggerTraceDetail.vue";
 
 const debounce = (fn, delay) => {
   let timer = null;
@@ -46,6 +50,7 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver {
 export default {
   name: 'App',
   components: {
+    TriggerTraceDetail,
     SerializationTask,
     RpcTask,
     TraceDetail,

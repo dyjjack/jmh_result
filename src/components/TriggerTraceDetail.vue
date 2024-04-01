@@ -1,16 +1,30 @@
 <template>
   <div>
-    <el-cascader v-model="selectedOptions"
-                 :options="cascaderOptions"
-                 @change="handleCascaderChange"
-                 clearable>
 
-    </el-cascader>
+    <el-row>
+      <el-col :span="8">
+        <el-cascader v-model="leftSelectedOptions"
+                     :options="cascaderOptions"
+                     @change="handleCascaderChange"
+                     clearable>
+
+        </el-cascader>
+      </el-col>
+      <el-col :span="8">
+        <el-button @click="open">触发Actions</el-button>
+      </el-col>
+      <el-col :span="8">
+        <el-cascader v-model="rightSelectedOptions"
+                     :options="cascaderOptions"
+                     @change="handleCascaderChange"
+                     clearable>
+
+        </el-cascader>
+      </el-col>
+    </el-row>
+
     <el-row>
       <el-col :span="12">
-        <el-header>
-          <h1>{{ leftTableTitle }}</h1>
-        </el-header>
         <el-table
             :data="leftTableDate"
             style="width: 100%"
@@ -26,9 +40,6 @@
       </el-col>
 
       <el-col :span="12">
-        <el-header>
-          <h1>{{ rightTableTitle }}</h1>
-        </el-header>
         <el-table
             :data="rightTableDate"
             style="width: 100%"
@@ -71,7 +82,7 @@
 
 <script>
 export default {
-  name: 'TraceDetail',
+  name: 'TriggerTraceDetail',
   data() {
     return {
       rpcTable: [],
@@ -81,45 +92,90 @@ export default {
       rightTableDate: [],
       rightTableTitle: '',
 
-      selectedOptions: [],
+      leftSelectedOptions: [],
+      rightSelectedOptions: [],
+
       disabledRoots: [],
       disabledChildren: [],
 
       cascaderOptions: [{
-        value: 'rpc',
-        label: 'RPC 协议',
-        children: [{
-          value: 'dubbo',
-          label: 'Dubbo协议',
-        }, {
-          value: 'rmi',
-          label: 'Rmi协议'
-        }, {
-          value: 'tri',
-          label: 'Triple协议'
-        }]
-      }, {
-        value: 'serialization',
-        label: '序列化',
+        value: 'dubbo',
+        label: 'Dubbo协议',
         children: [{
           value: 'hessian2',
           label: 'Hessian2'
         }, {
           value: 'fastjson2',
           label: 'Fastjson2'
-        },{
+        }, {
           value: 'fastjson',
           label: 'Fastjson'
-        },{
+        }, {
           value: 'avro',
           label: 'Avro'
-        },{
+        }, {
           value: 'fst',
           label: 'Fst'
-        },{
+        }, {
           value: 'gson',
           label: 'Gson'
-        },{
+        }, {
+          value: 'kryo',
+          label: 'Kryo'
+        }, {
+          value: 'msgpack',
+          label: 'Msgpack'
+        }]
+      }, {
+        value: 'rmi',
+        label: 'Rmi协议',
+        children: [{
+          value: 'hessian2',
+          label: 'Hessian2'
+        }, {
+          value: 'fastjson2',
+          label: 'Fastjson2'
+        }, {
+          value: 'fastjson',
+          label: 'Fastjson'
+        }, {
+          value: 'avro',
+          label: 'Avro'
+        }, {
+          value: 'fst',
+          label: 'Fst'
+        }, {
+          value: 'gson',
+          label: 'Gson'
+        }, {
+          value: 'kryo',
+          label: 'Kryo'
+        }, {
+          value: 'msgpack',
+          label: 'Msgpack'
+        }]
+      }, {
+        value: 'tri',
+        label: 'Triple协议',
+        children: [{
+          value: 'hessian2',
+          label: 'Hessian2'
+        }, {
+          value: 'fastjson2',
+          label: 'Fastjson2'
+        }, {
+          value: 'fastjson',
+          label: 'Fastjson'
+        }, {
+          value: 'avro',
+          label: 'Avro'
+        }, {
+          value: 'fst',
+          label: 'Fst'
+        }, {
+          value: 'gson',
+          label: 'Gson'
+        }, {
           value: 'kryo',
           label: 'Kryo'
         }, {
@@ -127,48 +183,6 @@ export default {
           label: 'Msgpack'
         }]
       }],
-      tmpCascaderOptions: [{
-        value: 'rpc',
-        label: 'RPC 协议',
-        children: [{
-          value: 'dubbo',
-          label: 'Dubbo协议',
-        }, {
-          value: 'rmi',
-          label: 'Rmi协议'
-        }, {
-          value: 'tri',
-          label: 'Triple协议'
-        }]
-      }, {
-        value: 'serialization',
-        label: '序列化',
-        children: [{
-          value: 'hessian2',
-          label: 'Hessian2'
-        }, {
-          value: 'fastjson2',
-          label: 'Fastjson2'
-        },{
-          value: 'fastjson',
-          label: 'Fastjson'
-        },{
-          value: 'avro',
-          label: 'Avro'
-        },{
-          value: 'fst',
-          label: 'Fst'
-        },{
-          value: 'gson',
-          label: 'Gson'
-        },{
-          value: 'kryo',
-          label: 'Kryo'
-        }, {
-          value: 'msgpack',
-          label: 'Msgpack'
-        }]
-      }]
     };
   },
 
@@ -249,7 +263,7 @@ export default {
 
     handleCascaderChange(value) {
       console.log("this.value", value)
-      console.log("this.selectedOptions", this.selectedOptions)
+      console.log("this.selectedOptions", this.leftSelectedOptions)
       let selectedRoot
 
       this.cascaderOptions = this.deepCopy2DArray(this.tmpCascaderOptions)
@@ -266,8 +280,8 @@ export default {
 
         if (value.length > 2) {
 
-          this.selectedOptions.splice(2)
-          value = this.selectedOptions
+          this.leftSelectedOptions.splice(2)
+          value = this.leftSelectedOptions
           let myValue = value.map(item => item[1])
           this.disabledChildren = selectedRoot.children.filter(((item, index) => index >= 2 && !myValue.includes(item.value))).map(item => item.value);
 
@@ -312,7 +326,7 @@ export default {
     },
 
     updateTable() {
-      if (this.selectedOptions == null || this.selectedOptions.length === 0) {
+      if (this.leftSelectedOptions == null || this.leftSelectedOptions.length === 0) {
         this.leftTableDate = []
         this.rightTableDate = []
 
@@ -322,8 +336,8 @@ export default {
         return
       }
 
-      let type = this.selectedOptions[0][0];
-      let value = this.selectedOptions.map(item => item[1])
+      let type = this.leftSelectedOptions[0][0];
+      let value = this.leftSelectedOptions.map(item => item[1])
 
       if (type === 'rpc') {
         let leftRpcFilter = this.rpcTable.find(item => value[0] === item['dubbo.protocol.name']);
@@ -346,6 +360,38 @@ export default {
         this.leftTableTitle = leftSerializationFilter ? leftSerializationFilter['dubbo.protocol.serialization'] : ''
         this.rightTableTitle = rightSerializationFilter ? rightSerializationFilter['dubbo.protocol.serialization'] : ''
       }
+    },
+    open() {
+      const h = this.$createElement;
+      this.$msgbox({
+        title: '消息',
+        message: h('p', null, [
+          h('span', null, '内容可以是 '),
+          h('i', { style: 'color: teal' }, 'VNode')
+        ]),
+        showCancelButton: true,
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        beforeClose: (action, instance, done) => {
+          if (action === 'confirm') {
+            instance.confirmButtonLoading = true;
+            instance.confirmButtonText = '执行中...';
+            setTimeout(() => {
+              done();
+              setTimeout(() => {
+                instance.confirmButtonLoading = false;
+              }, 300);
+            }, 3000);
+          } else {
+            done();
+          }
+        }
+      }).then(action => {
+        this.$message({
+          type: 'info',
+          message: 'action: ' + action
+        });
+      });
     }
   }
 }
