@@ -4,17 +4,21 @@
       <el-col :span="24"><div style="font-size: 30px">Ubuntu 2核4线程7GB内存</div></el-col>
     </el-row>
     <el-row>
+      <el-divider>默认配置</el-divider>
       <el-col :span="12"><PullRequest></PullRequest></el-col>
       <el-col :span="12"><ScheduledTask></ScheduledTask></el-col>
     </el-row>
     <el-row>
+      <el-divider>同一维度对比</el-divider>
       <el-col :span="12"><RpcTask></RpcTask></el-col>
       <el-col :span="12"><SerializationTask></SerializationTask></el-col>
     </el-row>
     <el-row>
       <el-col :span="24"><TraceDetail></TraceDetail></el-col>
     </el-row>
-    <el-row>
+
+    <el-row style="margin-top: 100px">
+      <el-divider>手动触发对比</el-divider>
       <el-col :span="24"><trigger-trace-detail></trigger-trace-detail></el-col>
     </el-row>
   </div>
