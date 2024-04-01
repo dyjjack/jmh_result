@@ -2,12 +2,12 @@
   {
     "jmhVersion": "1.37",
     "benchmark": "org.apache.dubbo.benchmark.demo.test.ConsumerIT.MyBenchmark.getUser",
-    "mode": "avgt",
+    "mode": "ss",
     "threads": 4,
-    "forks": 1,
+    "forks": 0,
     "jvm": "/usr/local/openjdk-8/jre/bin/java",
     "jvmArgs": [
-      "-javaagent:/usr/local/dubbo/jacocoagent.jar=destfile=/usr/local/dubbo/target-jacoco/1-1711872274562-jacoco.exec",
+      "-javaagent:/usr/local/dubbo/jacocoagent.jar=destfile=/usr/local/dubbo/target-jacoco/1-1711969791328-jacoco.exec",
       "-javaagent:/tmp/skywalking-agent/skywalking-agent.jar",
       "-Dzookeeper.address=zookeeper",
       "-Dskywalking.agent.service_name=dubbo-samples-benchmark-consumer",
@@ -16,48 +16,44 @@
       "-Dspring.version=5.0",
       "-Djava.version=8",
       "-Ddubbo.protocol.name=dubbo",
-      "-Ddubbo.protocol.name=\"-Ddubbo.protocol.name=dubbo\""
+      "-Dprop=-Ddubbo.version=3.2.12-SNAPSHOT-Dspring.version=5.0-Djava.version=8-Ddubbo.protocol.name=dubbo"
     ],
     "jdkVersion": "1.8.0_342",
     "vmName": "OpenJDK 64-Bit Server VM",
     "vmVersion": "25.342-b07",
-    "warmupIterations": 5,
+    "warmupIterations": 1,
     "warmupTime": "1 s",
     "warmupBatchSize": 1,
-    "measurementIterations": 5,
+    "measurementIterations": 1,
     "measurementTime": "1 s",
     "measurementBatchSize": 1,
     "params": {
-      "dubbo.protocol.name": "dubbo",
-      "time": "1711872340344"
+      "prop": "{\"dubbo.protocol.name\":\"dubbo\",\"java.version\":\"8\",\"dubbo.version\":\"3.2.12-SNAPSHOT\",\"spring.version\":\"5.0\"}",
+      "time": "1711969844275"
     },
     "primaryMetric": {
-      "score": 4.846535959990428,
-      "scoreError": 2.112277236661699,
+      "score": 42.833696749999994,
+      "scoreError": "NaN",
       "scoreConfidence": [
-        2.734258723328729,
-        6.958813196652127
+        "NaN",
+        "NaN"
       ],
       "scorePercentiles": {
-        "0.0": 4.165277874601089,
-        "50.0": 4.7307147425898775,
-        "90.0": 5.473619732667674,
-        "95.0": 5.473619732667674,
-        "99.0": 5.473619732667674,
-        "99.9": 5.473619732667674,
-        "99.99": 5.473619732667674,
-        "99.999": 5.473619732667674,
-        "99.9999": 5.473619732667674,
-        "100.0": 5.473619732667674
+        "0.0": 42.833696749999994,
+        "50.0": 42.833696749999994,
+        "90.0": 42.833696749999994,
+        "95.0": 42.833696749999994,
+        "99.0": 42.833696749999994,
+        "99.9": 42.833696749999994,
+        "99.99": 42.833696749999994,
+        "99.999": 42.833696749999994,
+        "99.9999": 42.833696749999994,
+        "100.0": 42.833696749999994
       },
       "scoreUnit": "ms/op",
       "rawData": [
         [
-          5.473619732667674,
-          4.532519065308405,
-          5.330548384785098,
-          4.7307147425898775,
-          4.165277874601089
+          42.833696749999994
         ]
       ]
     },
@@ -66,12 +62,12 @@
   {
     "jmhVersion": "1.37",
     "benchmark": "org.apache.dubbo.benchmark.demo.test.ConsumerIT.MyBenchmark.getUser",
-    "mode": "avgt",
+    "mode": "ss",
     "threads": 4,
-    "forks": 1,
+    "forks": 0,
     "jvm": "/usr/local/openjdk-8/jre/bin/java",
     "jvmArgs": [
-      "-javaagent:/usr/local/dubbo/jacocoagent.jar=destfile=/usr/local/dubbo/target-jacoco/1-1711872528258-jacoco.exec",
+      "-javaagent:/usr/local/dubbo/jacocoagent.jar=destfile=/usr/local/dubbo/target-jacoco/1-1711969921346-jacoco.exec",
       "-javaagent:/tmp/skywalking-agent/skywalking-agent.jar",
       "-Dzookeeper.address=zookeeper",
       "-Dskywalking.agent.service_name=dubbo-samples-benchmark-consumer",
@@ -80,48 +76,44 @@
       "-Dspring.version=5.0",
       "-Djava.version=8",
       "-Ddubbo.protocol.name=rmi",
-      "-Ddubbo.protocol.name=\"-Ddubbo.protocol.name=rmi\""
+      "-Dprop=-Ddubbo.version=3.2.12-SNAPSHOT-Dspring.version=5.0-Djava.version=8-Ddubbo.protocol.name=rmi"
     ],
     "jdkVersion": "1.8.0_342",
     "vmName": "OpenJDK 64-Bit Server VM",
     "vmVersion": "25.342-b07",
-    "warmupIterations": 5,
+    "warmupIterations": 1,
     "warmupTime": "1 s",
     "warmupBatchSize": 1,
-    "measurementIterations": 5,
+    "measurementIterations": 1,
     "measurementTime": "1 s",
     "measurementBatchSize": 1,
     "params": {
-      "dubbo.protocol.name": "rmi",
-      "time": "1711872571493"
+      "prop": "{\"dubbo.protocol.name\":\"rmi\",\"java.version\":\"8\",\"dubbo.version\":\"3.2.12-SNAPSHOT\",\"spring.version\":\"5.0\"}",
+      "time": "1711969961045"
     },
     "primaryMetric": {
-      "score": 3.8630252476545834,
-      "scoreError": 2.174999348096547,
+      "score": 64.9234045,
+      "scoreError": "NaN",
       "scoreConfidence": [
-        1.6880258995580366,
-        6.03802459575113
+        "NaN",
+        "NaN"
       ],
       "scorePercentiles": {
-        "0.0": 2.9288657908122246,
-        "50.0": 3.981834352300229,
-        "90.0": 4.441914615845018,
-        "95.0": 4.441914615845018,
-        "99.0": 4.441914615845018,
-        "99.9": 4.441914615845018,
-        "99.99": 4.441914615845018,
-        "99.999": 4.441914615845018,
-        "99.9999": 4.441914615845018,
-        "100.0": 4.441914615845018
+        "0.0": 64.9234045,
+        "50.0": 64.9234045,
+        "90.0": 64.9234045,
+        "95.0": 64.9234045,
+        "99.0": 64.9234045,
+        "99.9": 64.9234045,
+        "99.99": 64.9234045,
+        "99.999": 64.9234045,
+        "99.9999": 64.9234045,
+        "100.0": 64.9234045
       },
       "scoreUnit": "ms/op",
       "rawData": [
         [
-          4.441914615845018,
-          3.8664961567916953,
-          4.096015322523749,
-          3.981834352300229,
-          2.9288657908122246
+          64.9234045
         ]
       ]
     },
@@ -130,12 +122,12 @@
   {
     "jmhVersion": "1.37",
     "benchmark": "org.apache.dubbo.benchmark.demo.test.ConsumerIT.MyBenchmark.getUser",
-    "mode": "avgt",
+    "mode": "ss",
     "threads": 4,
-    "forks": 1,
+    "forks": 0,
     "jvm": "/usr/local/openjdk-8/jre/bin/java",
     "jvmArgs": [
-      "-javaagent:/usr/local/dubbo/jacocoagent.jar=destfile=/usr/local/dubbo/target-jacoco/1-1711872413657-jacoco.exec",
+      "-javaagent:/usr/local/dubbo/jacocoagent.jar=destfile=/usr/local/dubbo/target-jacoco/1-1711969864091-jacoco.exec",
       "-javaagent:/tmp/skywalking-agent/skywalking-agent.jar",
       "-Dzookeeper.address=zookeeper",
       "-Dskywalking.agent.service_name=dubbo-samples-benchmark-consumer",
@@ -144,48 +136,44 @@
       "-Dspring.version=5.0",
       "-Djava.version=8",
       "-Ddubbo.protocol.name=tri",
-      "-Ddubbo.protocol.name=\"-Ddubbo.protocol.name=tri\""
+      "-Dprop=-Ddubbo.version=3.2.12-SNAPSHOT-Dspring.version=5.0-Djava.version=8-Ddubbo.protocol.name=tri"
     ],
     "jdkVersion": "1.8.0_342",
     "vmName": "OpenJDK 64-Bit Server VM",
     "vmVersion": "25.342-b07",
-    "warmupIterations": 5,
+    "warmupIterations": 1,
     "warmupTime": "1 s",
     "warmupBatchSize": 1,
-    "measurementIterations": 5,
+    "measurementIterations": 1,
     "measurementTime": "1 s",
     "measurementBatchSize": 1,
     "params": {
-      "dubbo.protocol.name": "tri",
-      "time": "1711872454002"
+      "prop": "{\"dubbo.protocol.name\":\"tri\",\"java.version\":\"8\",\"dubbo.version\":\"3.2.12-SNAPSHOT\",\"spring.version\":\"5.0\"}",
+      "time": "1711969902197"
     },
     "primaryMetric": {
-      "score": 11.702776354278416,
-      "scoreError": 5.510485380139664,
+      "score": 55.887816750000006,
+      "scoreError": "NaN",
       "scoreConfidence": [
-        6.192290974138753,
-        17.21326173441808
+        "NaN",
+        "NaN"
       ],
       "scorePercentiles": {
-        "0.0": 9.979148338130129,
-        "50.0": 12.052316388422554,
-        "90.0": 13.130842821111786,
-        "95.0": 13.130842821111786,
-        "99.0": 13.130842821111786,
-        "99.9": 13.130842821111786,
-        "99.99": 13.130842821111786,
-        "99.999": 13.130842821111786,
-        "99.9999": 13.130842821111786,
-        "100.0": 13.130842821111786
+        "0.0": 55.887816750000006,
+        "50.0": 55.887816750000006,
+        "90.0": 55.887816750000006,
+        "95.0": 55.887816750000006,
+        "99.0": 55.887816750000006,
+        "99.9": 55.887816750000006,
+        "99.99": 55.887816750000006,
+        "99.999": 55.887816750000006,
+        "99.9999": 55.887816750000006,
+        "100.0": 55.887816750000006
       },
       "scoreUnit": "ms/op",
       "rawData": [
         [
-          13.130842821111786,
-          12.912269531484739,
-          12.052316388422554,
-          10.439304692242876,
-          9.979148338130129
+          55.887816750000006
         ]
       ]
     },
