@@ -525,7 +525,7 @@ export default {
               url: "https://api.github.com/repos/wxbty/dubbo/dispatches",
               type: "POST",
               beforeSend: function (xhr) {
-                xhr.setRequestHeader("Authorization", "Basic " + btoa("username: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"));
+                xhr.setRequestHeader("Authorization", "Basic " + btoa("username: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"));
                 xhr.setRequestHeader("Content-Type", "application/json");
                 xhr.setRequestHeader("Accept", "application/vnd.github.everest-preview+json");
               },
@@ -556,7 +556,7 @@ export default {
       }).then(() => {
         this.$message({
           type: 'success',
-          message: '触发成功!结果将在一小时内显示'
+          message: '触发成功！结果将在一小时内显示'
         });
       }).catch(() => {
         this.$message({
