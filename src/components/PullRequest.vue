@@ -117,7 +117,7 @@ export default {
       let option = {
         // animation: false,
         title: {
-          text: 'PR P99',
+          text: '提交记录 P99',
           x: 'center',
         },
         tooltip: {
@@ -238,7 +238,7 @@ export default {
       let option = {
         // animation: false,
         title: {
-          text: 'PR QPS',
+          text: '提交 QPS',
           x: 'center',
         },
         tooltip: {

@@ -117,7 +117,7 @@ export default {
       let option = {
         // animation: false,
         title: {
-          text: 'Schedule P99',
+          text: '定时 P99',
           x: 'center',
         },
         tooltip: {
@@ -237,7 +237,7 @@ export default {
       let option = {
         // animation: false,
         title: {
-          text: 'Schedule QPS',
+          text: '定时 QPS',
           x: 'center',
         },
         tooltip: {

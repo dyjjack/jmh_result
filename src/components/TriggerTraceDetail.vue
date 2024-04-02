@@ -5,7 +5,7 @@
     </el-row>
 
     <el-row>
-      <el-col :span="12">
+      <el-col :span="6">
         <span>选择具体配置</span>
         <el-cascader v-model="leftSelectedOptions"
                      :options="cascaderOptions"
@@ -14,7 +14,7 @@
         </el-cascader>
         <div id="TriggerP99" style="width:100%;height:400px"></div>
       </el-col>
-      <el-col :span="12">
+      <el-col :span="6">
         <span>选择具体配置</span>
         <el-cascader v-model="rightSelectedOptions"
                      :options="cascaderOptions"
@@ -23,10 +23,8 @@
         </el-cascader>
         <div id="TriggerQps" style="width:100%;height:400px"></div>
       </el-col>
-    </el-row>
 
-    <el-row>
-      <el-col :span="12">
+      <el-col :span="6">
         <el-header>
           <h1>{{ leftTableTitle }}</h1>
         </el-header>
@@ -44,7 +42,7 @@
         </el-table>
       </el-col>
 
-      <el-col :span="12">
+      <el-col :span="6">
         <el-header>
           <h1>{{ rightTableTitle }}</h1>
         </el-header>
@@ -281,6 +279,7 @@ export default {
         },
         series: [
           {
+            barWidth: '25%',
             type: 'bar',
             label: {
               //柱体上显示数值
@@ -368,6 +367,7 @@ export default {
         },
         series: [
           {
+            barWidth: '25%',
             type: 'bar',
             label: {
               //柱体上显示数值

@@ -70,7 +70,7 @@ export default {
 
       let option = {
         title: {
-          text: 'Serialization P99对比',
+          text: '序列化协议 P99对比',
           x: 'center',
           subtext: this.timestampToTime(time)
         },
@@ -156,7 +156,7 @@ export default {
 
       let option = {
         title: {
-          text: 'Serialization QPS对比',
+          text: '序列化协议 QPS对比',
           x: 'center',
           subtext: this.timestampToTime(time)
         },

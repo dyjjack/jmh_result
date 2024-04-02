@@ -1,15 +1,18 @@
 <template>
   <div id="app">
     <el-row>
-      <el-col :span="24"><div style="font-size: 30px">Ubuntu 2核4线程7GB内存</div></el-col>
+      <el-col :span="24"><div style="font-size: 30px">Dubbo 基准测试</div></el-col>
     </el-row>
     <el-row>
-      <el-divider><span style="font-size: 20px;">默认配置时间趋势</span></el-divider>
+      <el-col :span="24"><div style="font-size: 15px; text-align: right;">Ubuntu 2核4线程7GB内存</div></el-col>
+    </el-row>
+    <el-row>
+      <el-divider><span style="font-size: 20px;">提交性能趋势</span></el-divider>
       <el-col :span="12"><PullRequest></PullRequest></el-col>
       <el-col :span="12"><ScheduledTask></ScheduledTask></el-col>
     </el-row>
     <el-row>
-      <el-divider><span style="font-size: 20px;">同一维度对比</span></el-divider>
+      <el-divider><span style="font-size: 20px;">相同场景对比</span></el-divider>
       <el-col :span="12"><RpcTask></RpcTask></el-col>
       <el-col :span="12"><SerializationTask></SerializationTask></el-col>
     </el-row>
