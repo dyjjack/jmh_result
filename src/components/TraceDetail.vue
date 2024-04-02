@@ -329,25 +329,25 @@ export default {
       let value = this.selectedOptions.map(item => item[1])
 
       if (type === 'rpc') {
-        let leftRpcFilter = this.rpcTable.find(item => value[0] === item['dubbo.protocol.name']);
-        let rightRpcFilter = this.rpcTable.find(item => value[1] === item['dubbo.protocol.name']);
+        let leftRpcFilter = this.rpcTable.find(item => value[0] === JSON.parse(item.prop)['dubbo.protocol.name']);
+        let rightRpcFilter = this.rpcTable.find(item => value[1] === JSON.parse(item.prop)['dubbo.protocol.name']);
 
         this.leftTableDate = leftRpcFilter ? this.createSpanTree(leftRpcFilter.spans_) : []
         this.rightTableDate = rightRpcFilter ? this.createSpanTree(rightRpcFilter.spans_) : []
 
-        this.leftTableTitle = leftRpcFilter ? leftRpcFilter['dubbo.protocol.name'] : ''
-        this.rightTableTitle = rightRpcFilter ? rightRpcFilter['dubbo.protocol.name'] : ''
+        this.leftTableTitle = leftRpcFilter ? JSON.parse(leftRpcFilter.prop)['dubbo.protocol.name'] : ''
+        this.rightTableTitle = rightRpcFilter ? JSON.parse(rightRpcFilter.prop)['dubbo.protocol.name'] : ''
       }
 
       if (type === 'serialization') {
-        let leftSerializationFilter = this.serializationTable.find(item => value[0] === item['dubbo.protocol.serialization']);
-        let rightSerializationFilter = this.serializationTable.find(item => value[1] === item['dubbo.protocol.serialization']);
+        let leftSerializationFilter = this.serializationTable.find(item => value[0] === JSON.parse(item.prop)['dubbo.protocol.serialization']);
+        let rightSerializationFilter = this.serializationTable.find(item => value[1] === JSON.parse(item.prop)['dubbo.protocol.serialization']);
 
         this.leftTableDate = leftSerializationFilter ? this.createSpanTree(leftSerializationFilter.spans_) : []
         this.rightTableDate = rightSerializationFilter ? this.createSpanTree(rightSerializationFilter.spans_) : []
 
-        this.leftTableTitle = leftSerializationFilter ? leftSerializationFilter['dubbo.protocol.serialization'] : ''
-        this.rightTableTitle = rightSerializationFilter ? rightSerializationFilter['dubbo.protocol.serialization'] : ''
+        this.leftTableTitle = leftSerializationFilter ? JSON.parse(leftSerializationFilter.prop)['dubbo.protocol.serialization'] : ''
+        this.rightTableTitle = rightSerializationFilter ? JSON.parse(rightSerializationFilter.prop)['dubbo.protocol.serialization'] : ''
       }
     }
   }
