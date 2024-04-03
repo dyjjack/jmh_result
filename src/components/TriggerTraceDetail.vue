@@ -5,30 +5,26 @@
     </el-row>
 
     <el-row>
-      <el-col :span="12">
+      <el-col :span="6">
         <span>选择具体配置</span>
         <el-cascader v-model="leftSelectedOptions"
                      :options="cascaderOptions"
-                     @change="handleCascaderChange"
                      clearable>
 
         </el-cascader>
         <div id="TriggerP99" style="width:100%;height:400px"></div>
       </el-col>
-      <el-col :span="12">
+      <el-col :span="6">
         <span>选择具体配置</span>
         <el-cascader v-model="rightSelectedOptions"
                      :options="cascaderOptions"
-                     @change="handleCascaderChange"
                      clearable>
 
         </el-cascader>
         <div id="TriggerQps" style="width:100%;height:400px"></div>
       </el-col>
-    </el-row>
 
-    <el-row>
-      <el-col :span="12">
+      <el-col :span="6">
         <el-header>
           <h1>{{ leftTableTitle }}</h1>
         </el-header>
@@ -46,7 +42,7 @@
         </el-table>
       </el-col>
 
-      <el-col :span="12">
+      <el-col :span="6">
         <el-header>
           <h1>{{ rightTableTitle }}</h1>
         </el-header>
@@ -283,6 +279,7 @@ export default {
         },
         series: [
           {
+            barWidth: '25%',
             type: 'bar',
             label: {
               //柱体上显示数值
@@ -370,6 +367,7 @@ export default {
         },
         series: [
           {
+            barWidth: '25%',
             type: 'bar',
             label: {
               //柱体上显示数值
@@ -459,106 +457,6 @@ export default {
       return rootSpans;
     },
 
-    handleCascaderChange(value) {
-      console.log("this.value", value)
-      console.log("this.selectedOptions", this.leftSelectedOptions)
-      let selectedRoot
-
-      this.cascaderOptions = this.deepCopy2DArray(this.tmpCascaderOptions)
-      if (value != null && value.length > 0) {
-        // 当用户选择一个根节点时，禁用其他根节点
-        selectedRoot = this.cascaderOptions.find(item => item.value === value[0][0]);
-      }
-
-      if (selectedRoot) {
-        this.disabledRoots = this.cascaderOptions
-            .filter(item => item.value !== selectedRoot.value)
-            .map(item => item.value);
-
-
-        if (value.length > 2) {
-
-          this.leftSelectedOptions.splice(2)
-          value = this.leftSelectedOptions
-          let myValue = value.map(item => item[1])
-          this.disabledChildren = selectedRoot.children.filter(((item, index) => index >= 2 && !myValue.includes(item.value))).map(item => item.value);
-
-        } else if (value.length === 2) {
-
-          let myValue = value.map(item => item[1])
-          this.disabledChildren = selectedRoot.children.filter(item => !myValue.includes(item.value)).map(item => item.value);
-
-        } else {
-
-          this.disabledChildren = []
-
-        }
-      } else {
-        // 如果用户取消了选择，或者选择了子节点，重置禁用状态
-        this.disabledRoots = [];
-        this.disabledChildren = []
-      }
-
-      this.updateCascaderOptions(selectedRoot);
-
-      this.updateTable();
-    },
-
-    updateCascaderOptions(selectedRoot) {
-      // 根据禁用状态数组，动态修改数据源
-      if (selectedRoot) {
-        selectedRoot.children = selectedRoot.children.map(item => ({
-          ...item,
-          disabled: this.disabledChildren.includes(item.value),
-        }));
-      }
-
-      this.cascaderOptions = this.cascaderOptions.map(item => ({
-        ...item,
-        disabled: this.disabledRoots.includes(item.value),
-      }));
-    },
-
-    deepCopy2DArray(arr) {
-      return JSON.parse(JSON.stringify(arr));
-    },
-
-    updateTable() {
-      if (this.leftSelectedOptions == null || this.leftSelectedOptions.length === 0) {
-        this.leftTableDate = []
-        this.rightTableDate = []
-
-        this.leftTableTitle = ''
-        this.rightTableTitle = ''
-
-        return
-      }
-
-      let type = this.leftSelectedOptions[0][0];
-      let value = this.leftSelectedOptions.map(item => item[1])
-
-      if (type === 'rpc') {
-        let leftRpcFilter = this.triggerTable.find(item => value[0] === item['dubbo.protocol.name']);
-        let rightRpcFilter = this.triggerTable.find(item => value[1] === item['dubbo.protocol.name']);
-
-        this.leftTableDate = leftRpcFilter ? this.createSpanTree(leftRpcFilter.spans_) : []
-        this.rightTableDate = rightRpcFilter ? this.createSpanTree(rightRpcFilter.spans_) : []
-
-        this.leftTableTitle = leftRpcFilter ? leftRpcFilter['dubbo.protocol.name'] : ''
-        this.rightTableTitle = rightRpcFilter ? rightRpcFilter['dubbo.protocol.name'] : ''
-      }
-
-      if (type === 'serialization') {
-        let leftSerializationFilter = this.serializationTable.find(item => value[0] === item['dubbo.protocol.serialization']);
-        let rightSerializationFilter = this.serializationTable.find(item => value[1] === item['dubbo.protocol.serialization']);
-
-        this.leftTableDate = leftSerializationFilter ? this.createSpanTree(leftSerializationFilter.spans_) : []
-        this.rightTableDate = rightSerializationFilter ? this.createSpanTree(rightSerializationFilter.spans_) : []
-
-        this.leftTableTitle = leftSerializationFilter ? leftSerializationFilter['dubbo.protocol.serialization'] : ''
-        this.rightTableTitle = rightSerializationFilter ? rightSerializationFilter['dubbo.protocol.serialization'] : ''
-      }
-    },
     open() {
       if ((this.leftSelectedOptions == null || this.leftSelectedOptions.length === 0) && (this.rightSelectedOptions == null || this.rightSelectedOptions.length === 0)) {
         this.$message({
@@ -627,7 +525,7 @@ export default {
               url: "https://api.github.com/repos/wxbty/dubbo/dispatches",
               type: "POST",
               beforeSend: function (xhr) {
-                xhr.setRequestHeader("Authorization", "Basic " + btoa("username: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"));
+                xhr.setRequestHeader("Authorization", "Basic " + btoa("username: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"));
                 xhr.setRequestHeader("Content-Type", "application/json");
                 xhr.setRequestHeader("Accept", "application/vnd.github.everest-preview+json");
               },
@@ -642,10 +540,13 @@ export default {
                 console.log("Success:", data);
                 done();
               },
-              error: function (xhr, status, error) {
+              error: (xhr, status, error) => {
                 instance.confirmButtonLoading = false;
                 console.error("Error:", error);
-                done();
+                this.$message({
+                  type: 'error',
+                  message: '触发失败'
+                });
               }
             });
           } else {
@@ -655,7 +556,7 @@ export default {
       }).then(() => {
         this.$message({
           type: 'success',
-          message: '触发成功!结果将在一小时内显示'
+          message: '触发成功！结果将在一小时内显示'
         });
       }).catch(() => {
         this.$message({

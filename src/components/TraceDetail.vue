@@ -1,14 +1,19 @@
 <template>
   <div>
-    <span>选择两个配置对比</span>
-    <el-cascader :show-all-levels="false"
-                 :props="props"
-                 v-model="selectedOptions"
-                 :options="cascaderOptions"
-                 @change="handleCascaderChange"
-                 clearable>
+    <el-row>
+      <el-col :span="6">
+        <span>选择两个配置对比</span>
+        <el-cascader :show-all-levels="false"
+                     :props="props"
+                     v-model="selectedOptions"
+                     :options="cascaderOptions"
+                     @change="handleCascaderChange"
+                     clearable>
 
-    </el-cascader>
+        </el-cascader>
+      </el-col>
+    </el-row>
+
     <el-row>
       <el-col :span="12">
         <el-header>
@@ -177,6 +182,8 @@ export default {
 
   mounted() {
     this.initTable();
+    this.selectedOptions = [['serialization', 'hessian2'], ['serialization', 'fastjson2']]
+    this.handleCascaderChange(this.selectedOptions)
   },
 
   methods: {

@@ -70,7 +70,7 @@ export default {
 
       let option = {
         title: {
-          text: 'RPC P99对比',
+          text: 'RPC协议 P99对比',
           x: 'center',
           subtext: this.timestampToTime(time)
         },
@@ -108,6 +108,7 @@ export default {
         },
         series: [
           {
+            barWidth: '35%',
             type: 'bar',
             label: {
               //柱体上显示数值
@@ -156,7 +157,7 @@ export default {
 
       let option = {
         title: {
-          text: 'RPC QPS对比',
+          text: 'RPC协议 QPS对比',
           x: 'center',
           subtext: this.timestampToTime(time)
         },
@@ -194,6 +195,7 @@ export default {
         },
         series: [
           {
+            barWidth: '35%',
             type: 'bar',
             label: {
               //柱体上显示数值
