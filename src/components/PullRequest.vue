@@ -54,7 +54,8 @@ export default {
               time: Number(time),
               score: Math.round(result.primaryMetric.scorePercentiles['99.0'] * 1000),
               serialization: serialization,
-              protocol: protocol
+              protocol: protocol,
+              commitId: result.commitId
             };
             let key = protocol + "-" + serialization;
             if (!acc[key]) {
@@ -73,7 +74,8 @@ export default {
 
         templateList[key] = {
           time: sortedItems.map(i => i.time),
-          score: sortedItems.map(i => i.score)
+          score: sortedItems.map(i => i.score),
+          commitId: sortedItems.map(i => i.commitId)
         };
       });
 
@@ -91,7 +93,7 @@ export default {
         let data = templateList[key].time.map((time, index) => {
           return {
             name: formatDate(time),
-            value: [time, templateList[key].score[index]]
+            value: [time, templateList[key].score[index], templateList[key].commitId[index]]
           };
         });
         return {
@@ -125,7 +127,7 @@ export default {
           formatter: function (params) {
             let res = params[0].axisValueLabel + '<br/>';
             params.forEach(item => {
-              res += item.marker + " " + (item.data.value[1] !== null ? item.data.value[1] : '-') + 'ms<br/>';
+              res += item.marker + " " + (item.data.value[2] !== null ? item.data.value[2] : '') + "：" + (item.data.value[1] !== null ? item.data.value[1] : '-') + 'ms<br/>';
             });
             return res;
           }
