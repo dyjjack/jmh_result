@@ -81,16 +81,16 @@ export default {
 //       let xAxisData = Array.from(new Set([].concat(...Object.values(templateList).map(obj => obj.time)))).sort((a, b) => a - b);
 
 // 自定义时间轴的标签格式
-      function formatDate(timestamp) {
-        var date = new Date(timestamp);
-        return date.toLocaleDateString("en-US") + " " + date.toLocaleTimeString("en-US");
-      }
+//       function formatDate(timestamp) {
+//         var date = new Date(timestamp);
+//         return date.toLocaleDateString("en-US") + " " + date.toLocaleTimeString("en-US");
+//       }
 
 // 生成ECharts所需的series数据结构
       let seriesData = Object.keys(templateList).map((key) => {
         let data = templateList[key].time.map((time, index) => {
           return {
-            name: formatDate(time),
+            name: this.timestampToTime(time),
             value: [time, templateList[key].score[index]]
           };
         });
@@ -123,7 +123,7 @@ export default {
         tooltip: {
           trigger: 'axis',
           formatter: function (params) {
-            let res = params[0].axisValueLabel + '<br/>';
+            let res = params[0].data.name  + '<br/>';
             params.forEach(item => {
               res += item.marker + " " + (item.data.value[1] !== null ? item.data.value[1] : '-') + 'ms<br/>';
             });
@@ -201,16 +201,16 @@ export default {
 //       let xAxisData = Array.from(new Set([].concat(...Object.values(templateList).map(obj => obj.time)))).sort((a, b) => a - b);
 
 // 自定义时间轴的标签格式
-      function formatDate(timestamp) {
-        var date = new Date(timestamp);
-        return date.toLocaleDateString("en-US") + " " + date.toLocaleTimeString("en-US");
-      }
+//       function formatDate(timestamp) {
+//         var date = new Date(timestamp);
+//         return date.toLocaleDateString("en-US") + " " + date.toLocaleTimeString("en-US");
+//       }
 
 // 生成ECharts所需的series数据结构
       let seriesData = Object.keys(templateList).map((key) => {
         let data = templateList[key].time.map((time, index) => {
           return {
-            name: formatDate(time),
+            name: this.timestampToTime(time),
             value: [time, templateList[key].score[index]]
           };
         });
@@ -243,7 +243,7 @@ export default {
         tooltip: {
           trigger: 'axis',
           formatter: function (params) {
-            let res = params[0].axisValueLabel + '<br/>';
+            let res = params[0].data.name  + '<br/>';
             params.forEach(item => {
               res += item.marker + " " + (item.data.value[1] !== null ? item.data.value[1] : '-') + 'ops/s<br/>';
             });
@@ -278,6 +278,17 @@ export default {
 
       // 使用刚指定的配置项和数据显示图表。
       myChart.setOption(option);
+    },
+    timestampToTime(timestamp) {
+      let date = new Date(Number(timestamp));
+      let Y = date.getFullYear() + '-';
+      let M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+      let D = date.getDate() + ' ';
+      let h = date.getHours() + ':';
+      let m = date.getMinutes() + ':';
+      let s = date.getSeconds();
+
+      return Y + M + D + h + m + s;
     }
   }
 }
