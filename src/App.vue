@@ -4,7 +4,12 @@
       <el-col :span="24"><div style="font-size: 30px">Dubbo 基准测试</div></el-col>
     </el-row>
     <el-row>
-      <el-col :span="24"><div style="font-size: 15px; text-align: right;">Ubuntu 2核4线程7GB内存</div></el-col>
+      <el-col :span="24"><div style="font-size: 15px; text-align: right;">
+        <a target="_blank"
+           href="https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners/about-github-hosted-runners#standard-github-hosted-runners-for-public-repositories">
+          Linux 4C16G JDK 1.8</a>
+      </div>
+      </el-col>
     </el-row>
     <el-row>
       <el-divider><span style="font-size: 20px;">提交性能趋势</span></el-divider>
