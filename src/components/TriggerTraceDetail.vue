@@ -26,7 +26,7 @@
 
       <el-col :span="6">
         <el-header>
-          <h1>{{ leftTableTitle }}</h1>
+          <h1 style="overflow: hidden;  white-space: nowrap;  text-overflow: ellipsis">{{ leftTableTitle }}</h1>
         </el-header>
         <el-table
             :data="leftTableDate"
@@ -420,8 +420,8 @@ export default {
       this.leftTableDate = this.createSpanTree(this.triggerTable != null && this.triggerTable.length > 0 ? this.triggerTable[0].spans_ : [])
       this.rightTableDate = this.createSpanTree(this.triggerTable != null && this.triggerTable.length > 1 ? this.triggerTable[1].spans_ : [])
 
-      this.leftTableTitle = this.triggerTable != null && this.triggerTable.length > 0 ? this.triggerTable[0].prop : ""
-      this.rightTableTitle = this.triggerTable != null && this.triggerTable.length > 1 ? this.triggerTable[1].prop : ""
+      this.leftTableTitle = this.triggerTable != null && this.triggerTable.length > 0 ? JSON.parse(this.triggerTable[0].prop)['dubbo.protocol.name'] + "-" + JSON.parse(this.triggerTable[0].prop)['dubbo.protocol.serialization'] : ""
+      this.rightTableTitle = this.triggerTable != null && this.triggerTable.length > 1 ? JSON.parse(this.triggerTable[1].prop)['dubbo.protocol.name'] + "-" + JSON.parse(this.triggerTable[1].prop)['dubbo.protocol.serialization'] : ""
     }
     ,
 
@@ -525,7 +525,7 @@ export default {
               url: "https://api.github.com/repos/wxbty/dubbo/dispatches",
               type: "POST",
               beforeSend: function (xhr) {
-                xhr.setRequestHeader("Authorization", "Basic " + btoa("username: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"));
+                xhr.setRequestHeader("Authorization", "Basic " + btoa("username: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"));
                 xhr.setRequestHeader("Content-Type", "application/json");
                 xhr.setRequestHeader("Accept", "application/vnd.github.everest-preview+json");
               },

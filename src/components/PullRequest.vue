@@ -99,6 +99,7 @@ export default {
         return {
           name: key,
           type: 'line',
+          smooth: true,
           showSymbol: true, // 显示标记点
           hoverAnimation: false, // 关闭hover动画
           symbolSize: 10, // 设置点的直径大小为10
@@ -220,6 +221,7 @@ export default {
         return {
           name: key,
           type: 'line',
+          smooth: true,
           showSymbol: true, // 显示标记点
           hoverAnimation: false, // 关闭hover动画
           symbolSize: 10, // 设置点的直径大小为10
