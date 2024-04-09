@@ -53,7 +53,7 @@ export default {
             // 注意这里只用一个参数接收当前元素
             let protocol = JSON.parse(result.params.prop)['dubbo.protocol.serialization'];
             return {
-              score: Math.round(result.primaryMetric.scorePercentiles['99.0'] * 1000),
+              score: Number((result.primaryMetric.scorePercentiles['99.0'] * 1000).toFixed(1)),
               protocol: protocol
             };
           });
