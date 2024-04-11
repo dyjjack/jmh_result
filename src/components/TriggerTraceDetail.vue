@@ -1,7 +1,27 @@
 <template>
   <div>
     <el-row>
-      <el-button type="primary" @click="open">触发Actions</el-button>
+      <el-col :span="4">
+        <el-input v-model="PUSH_NAME" placeholder="用户名"></el-input>
+      </el-col>
+
+      <el-col :span="4">
+        <el-input v-model="REPO_NAME" placeholder="仓库名"></el-input>
+      </el-col>
+
+      <el-col :span="4">
+        <el-input v-model="RESULTS_REPO_BRANCH" placeholder="分支"></el-input>
+      </el-col>
+
+      <el-col :span="12">
+        <el-input v-model="PUSH_TOKEN" placeholder="token"></el-input>
+      </el-col>
+
+      <el-tooltip content="请把下载的文件放到目标仓库【默认分支】/.github/workflows/下" placement="top" effect="light">
+        <el-button type="primary" @click="open">触发Actions</el-button>
+      </el-tooltip>
+
+      <el-button @click="downloadFile">下载文件</el-button>
     </el-row>
 
     <el-row>
@@ -68,6 +88,11 @@ export default {
   name: 'TriggerTraceDetail',
   data() {
     return {
+      PUSH_NAME: null,
+      REPO_NAME: null,
+      RESULTS_REPO_BRANCH: null,
+      PUSH_TOKEN: null,
+
       triggerTable: [],
 
       leftTableTitle: '',
@@ -193,21 +218,30 @@ export default {
 
   methods: {
     init() {
-      let jmh;
+      this.message = localStorage.getItem('myMessage') || ''
+      this.PUSH_NAME = localStorage.getItem('PUSH_NAME') || ''
+      this.REPO_NAME = localStorage.getItem('REPO_NAME') || ''
+      this.RESULTS_REPO_BRANCH = localStorage.getItem('RESULTS_REPO_BRANCH') || ''
+      this.PUSH_TOKEN = localStorage.getItem('PUSH_TOKEN') || ''
 
-      this.$.ajax({
-        type: "GET",
-        async: false,
-        url: "https://raw.githubusercontent.com/wxbty/jmh_result/main/test-results/scenario/merged_prop_results.json",
-        success: function (res) {
-          jmh = res
+
+      if (this.PUSH_NAME && this.REPO_NAME && this.RESULTS_REPO_BRANCH) {
+        let jmh;
+
+        this.$.ajax({
+          type: "GET",
+          async: false,
+          url: "https://raw.githubusercontent.com/" + this.PUSH_NAME + "/" + this.REPO_NAME + "/" + this.RESULTS_REPO_BRANCH + "/merged_prop_results.json",
+          success: function (res) {
+            jmh = res
+          }
+        });
+
+        try {
+          this.resultList = JSON.parse(jmh);
+        } catch (error) {
+          console.error("解析JMH结果字符串出错：", error);
         }
-      });
-
-      try {
-        this.resultList = JSON.parse(jmh);
-      } catch (error) {
-        console.error("解析JMH结果字符串出错：", error);
       }
     },
 
@@ -400,28 +434,31 @@ export default {
     },
     initTable() {
 
-      let rpcResultList;
-      this.$.ajax({
-        type: "GET",
-        async: false,
-        url: "https://raw.githubusercontent.com/wxbty/jmh_result/main/test-results/scenario/merged_prop_traces.json",
-        success: function (res) {
-          rpcResultList = res
-        }
-      });
+      if (this.PUSH_NAME && this.REPO_NAME && this.RESULTS_REPO_BRANCH) {
+        let jmh;
 
-      try {
-        this.triggerTable = JSON.parse(rpcResultList)
-        console.log("this.rpcTable", this.triggerTable)
-      } catch (error) {
-        console.error("解析JMH结果字符串出错：", error);
+        this.$.ajax({
+          type: "GET",
+          async: false,
+          url: "https://raw.githubusercontent.com/" + this.PUSH_NAME + "/" + this.REPO_NAME + "/" + this.RESULTS_REPO_BRANCH + "/merged_prop_traces.json",
+          success: function (res) {
+            jmh = res
+          }
+        });
+
+        try {
+          this.resultList = JSON.parse(jmh);
+        } catch (error) {
+          console.error("解析JMH结果字符串出错：", error);
+        }
+
+        this.leftTableDate = this.createSpanTree(this.triggerTable != null && this.triggerTable.length > 0 ? this.triggerTable[0].spans_ : [])
+        this.rightTableDate = this.createSpanTree(this.triggerTable != null && this.triggerTable.length > 1 ? this.triggerTable[1].spans_ : [])
+
+        this.leftTableTitle = this.triggerTable != null && this.triggerTable.length > 0 ? JSON.parse(this.triggerTable[0].prop)['dubbo.protocol.name'] + "-" + JSON.parse(this.triggerTable[0].prop)['dubbo.protocol.serialization'] : ""
+        this.rightTableTitle = this.triggerTable != null && this.triggerTable.length > 1 ? JSON.parse(this.triggerTable[1].prop)['dubbo.protocol.name'] + "-" + JSON.parse(this.triggerTable[1].prop)['dubbo.protocol.serialization'] : ""
       }
 
-      this.leftTableDate = this.createSpanTree(this.triggerTable != null && this.triggerTable.length > 0 ? this.triggerTable[0].spans_ : [])
-      this.rightTableDate = this.createSpanTree(this.triggerTable != null && this.triggerTable.length > 1 ? this.triggerTable[1].spans_ : [])
-
-      this.leftTableTitle = this.triggerTable != null && this.triggerTable.length > 0 ? JSON.parse(this.triggerTable[0].prop)['dubbo.protocol.name'] + "-" + JSON.parse(this.triggerTable[0].prop)['dubbo.protocol.serialization'] : ""
-      this.rightTableTitle = this.triggerTable != null && this.triggerTable.length > 1 ? JSON.parse(this.triggerTable[1].prop)['dubbo.protocol.name'] + "-" + JSON.parse(this.triggerTable[1].prop)['dubbo.protocol.serialization'] : ""
     }
     ,
 
@@ -462,6 +499,34 @@ export default {
         this.$message({
           type: 'warning',
           message: '请选择至少一个'
+        });
+        return
+      }
+      if (!this.PUSH_NAME) {
+        this.$message({
+          type: 'warning',
+          message: '用户名为空'
+        });
+        return
+      }
+      if (!this.REPO_NAME) {
+        this.$message({
+          type: 'warning',
+          message: '仓库名为空'
+        });
+        return
+      }
+      if (!this.RESULTS_REPO_BRANCH) {
+        this.$message({
+          type: 'warning',
+          message: '分支为空'
+        });
+        return
+      }
+      if (!this.PUSH_TOKEN) {
+        this.$message({
+          type: 'warning',
+          message: 'token为空'
         });
         return
       }
@@ -522,22 +587,35 @@ export default {
             instance.confirmButtonLoading = true;
             instance.confirmButtonText = '执行中...';
             this.$.ajax({
-              url: "https://api.github.com/repos/wxbty/dubbo/dispatches",
+              url: "https://api.github.com/repos/" + this.PUSH_NAME + "/" + this.REPO_NAME + "/dispatches",
               type: "POST",
-              beforeSend: function (xhr) {
-                xhr.setRequestHeader("Authorization", "Basic " + btoa("username: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"));
+              beforeSend: (xhr)=> {
+                xhr.setRequestHeader("Authorization", "Basic " + btoa("username:" + this.PUSH_TOKEN));
                 xhr.setRequestHeader("Content-Type", "application/json");
                 xhr.setRequestHeader("Accept", "application/vnd.github.everest-preview+json");
               },
               data: JSON.stringify({
                 "event_type": "manual-trigger",
                 "client_payload": {
-                  "prop": prop
+                  "prop": prop,
+                  "PUSH_NAME": this.PUSH_NAME,
+                  "REPO_NAME": this.REPO_NAME,
+                  "RESULTS_REPO_BRANCH": this.RESULTS_REPO_BRANCH
                 }
               }),
-              success: function (data) {
+
+              PUSH_NAME: null,
+              REPO_NAME: null,
+              RESULTS_REPO_BRANCH: null,
+              PUSH_TOKEN: null,
+
+              success: (data) => {
                 instance.confirmButtonLoading = false;
                 console.log("Success:", data);
+                localStorage.setItem('PUSH_NAME', this.PUSH_NAME)
+                localStorage.setItem('REPO_NAME', this.REPO_NAME)
+                localStorage.setItem('RESULTS_REPO_BRANCH', this.RESULTS_REPO_BRANCH)
+                localStorage.setItem('PUSH_TOKEN', this.PUSH_TOKEN)
                 done();
               },
               error: (xhr, status, error) => {
@@ -564,6 +642,21 @@ export default {
           message: '已取消'
         });
       });
+    },
+
+    downloadFile() {
+      // 文件的公开路径应与你放置在 public 目录中的相对位置匹配
+      const publicPath = '/trigger-sample-benchmark.yml';
+      // 重要提示：BASE_URL 是项目的基础 URL，如果你的项目部署在子路径下，此变量将包含该子路径
+      const downloadLink = `${process.env.BASE_URL}${publicPath}`;
+
+      // 以动态创建的 <a> 标签方式进行下载
+      const link = document.createElement('a');
+      link.href = downloadLink;
+      link.setAttribute('download', 'trigger-sample-benchmark.yml');  // 设置下载的文件名
+      document.body.appendChild(link);
+      link.click(); // 触发下载
+      document.body.removeChild(link); // 删除创建的链接
     }
   }
 }
