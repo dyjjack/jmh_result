@@ -193,7 +193,7 @@ export default {
       this.$.ajax({
         type: "GET",
         async: false,
-        url: "https://raw.githubusercontent.com/dyjjack/jmh_result/main/test-results/fixed/rpc/merged_prop_traces.json",
+        url: "https://raw.githubusercontent.com/wxbty/jmh_result/main/test-results/fixed/rpc/merged_prop_traces.json",
         success: function (res) {
           rpcResultList = res
         }
@@ -210,7 +210,7 @@ export default {
       this.$.ajax({
         type: "GET",
         async: false,
-        url: "https://raw.githubusercontent.com/dyjjack/jmh_result/main/test-results/fixed/serialization/merged_prop_traces.json",
+        url: "https://raw.githubusercontent.com/wxbty/jmh_result/main/test-results/fixed/serialization/merged_prop_traces.json",
         success: function (res) {
           serializationResultList = res;
         }

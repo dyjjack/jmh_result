@@ -198,7 +198,7 @@ export default {
       this.$.ajax({
         type: "GET",
         async: false,
-        url: "https://raw.githubusercontent.com/dyjjack/jmh_result/main/test-results/scenario/merged_prop_results.json",
+        url: "https://raw.githubusercontent.com/wxbty/jmh_result/main/test-results/scenario/merged_prop_results.json",
         success: function (res) {
           jmh = res
         }
@@ -404,7 +404,7 @@ export default {
       this.$.ajax({
         type: "GET",
         async: false,
-        url: "https://raw.githubusercontent.com/dyjjack/jmh_result/main/test-results/scenario/merged_prop_traces.json",
+        url: "https://raw.githubusercontent.com/wxbty/jmh_result/main/test-results/scenario/merged_prop_traces.json",
         success: function (res) {
           rpcResultList = res
         }
@@ -522,10 +522,10 @@ export default {
             instance.confirmButtonLoading = true;
             instance.confirmButtonText = '执行中...';
             this.$.ajax({
-              url: "https://api.github.com/repos/dyjjack/dubbo-wxb/dispatches",
+              url: "https://api.github.com/repos/wxbty/dubbo/dispatches",
               type: "POST",
               beforeSend: function (xhr) {
-                xhr.setRequestHeader("Authorization", "Basic " + btoa("username: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"));
+                xhr.setRequestHeader("Authorization", "Basic " + btoa("username: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"));
                 xhr.setRequestHeader("Content-Type", "application/json");
                 xhr.setRequestHeader("Accept", "application/vnd.github.everest-preview+json");
               },
