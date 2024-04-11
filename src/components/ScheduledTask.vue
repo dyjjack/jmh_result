@@ -154,6 +154,18 @@ export default {
           type: 'value',
           name: '耗时(ms)'
         },
+        dataZoom: [
+          {
+            type: 'inside', // 在图表内部拖动缩放
+            start: 80,
+            end: 100
+          },
+          {
+            type: 'slider', // 有一个滑动条
+            start: 80, // 数据窗口范围的起始百分比，表示显示数据的起始点为 0%
+            end: 100   // 数据窗口范围的结束百分比，表示显示数据的结束点为 10%
+          }
+        ],
         series: seriesData
       };
 
@@ -275,6 +287,18 @@ export default {
           type: 'value',
           name: 'ops/s'
         },
+        dataZoom: [
+          {
+            type: 'inside', // 在图表内部拖动缩放
+            start: 80,
+            end: 100
+          },
+          {
+            type: 'slider', // 有一个滑动条
+            start: 80, // 数据窗口范围的起始百分比，表示显示数据的起始点为 0%
+            end: 100   // 数据窗口范围的结束百分比，表示显示数据的结束点为 10%
+          }
+        ],
         series: seriesData
       };
 
