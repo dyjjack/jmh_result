@@ -287,7 +287,7 @@ export default {
               position: 'top', //在上方显示
               textStyle: {
                 //数值样式
-                fontSize: '30px',
+                fontSize: '15px',
                 color: '#666'
               },
             }
@@ -375,7 +375,7 @@ export default {
               position: 'top', //在上方显示
               textStyle: {
                 //数值样式
-                fontSize: '30px',
+                fontSize: '15px',
                 color: '#666'
               },
             }
