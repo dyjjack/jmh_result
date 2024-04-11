@@ -52,7 +52,7 @@ export default {
             let {time, serialization, protocol} = result.params;
             let item = {
               time: Number(time),
-              score: Math.round(result.primaryMetric.scorePercentiles['99.0'] * 1000),
+              score: Number((result.primaryMetric.scorePercentiles['99.0'] * 1000).toFixed(1)),
               serialization: serialization,
               protocol: protocol
             };

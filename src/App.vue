@@ -7,7 +7,7 @@
       <el-col :span="24"><div style="font-size: 15px; text-align: right;">
         <a target="_blank"
            href="https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners/about-github-hosted-runners#standard-github-hosted-runners-for-public-repositories">
-          Linux 4C16G JDK 1.8</a>
+          32并发线程 Linux 4C8T 16GB JDK1.8</a>
       </div>
       </el-col>
     </el-row>
