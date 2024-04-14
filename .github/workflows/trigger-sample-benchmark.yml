@@ -25,7 +25,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: 'wxbty/dubbo-samples'
-          ref: bh-test
+          ref: bh
       - name: Check if directory exists
         run: |
           #!/bin/bash
@@ -179,6 +179,11 @@ jobs:
           RESULTS_REPO_BRANCH: ${{ secrets.RESULTS_REPO_BRANCH }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          
+          RESULTS_REPO_OWNER="${{ github.event.client_payload.PUSH_NAME}}"
+          RESULTS_REPO_BRANCH="${{ github.event.client_payload.RESULTS_REPO_BRANCH}}"
+          RESULTS_REPO_NAME="${{ github.event.client_payload.REPO_NAME}}"
+          
           if ! ls /tmp/jmh_result_prop*.json -1q &> /dev/null; then
             echo "No file matching /tmp/jmh_result_prop*.json exists. Exiting..."
             exit 0
