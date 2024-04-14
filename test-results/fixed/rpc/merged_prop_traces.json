@@ -1,13 +1,13 @@
 [
   {
-    "traceId_": "2dc5909aa0cf41b6b3e9599e63d39078.45.17130319242590469",
-    "traceSegmentId_": "2dc5909aa0cf41b6b3e9599e63d39078.45.17130319242590468",
+    "traceId_": "a3bebb4d6050400f9dec81a6dcadecf4.45.17130552706021661",
+    "traceSegmentId_": "a3bebb4d6050400f9dec81a6dcadecf4.45.17130552706021660",
     "spans_": [
       {
         "spanId_": 8,
         "parentSpanId_": 7,
-        "startTime_": 1713031924259,
-        "endTime_": 1713031924259,
+        "startTime_": 1713055270602,
+        "endTime_": 1713055270602,
         "refs_": [],
         "operationName_": "org.apache.dubbo.common.serialize.fastjson2.FastJson2Serialization.serialize(org.apache.dubbo.common.URL,java.io.OutputStream)",
         "peer_": "",
@@ -28,8 +28,8 @@
       {
         "spanId_": 7,
         "parentSpanId_": 6,
-        "startTime_": 1713031924259,
-        "endTime_": 1713031924259,
+        "startTime_": 1713055270602,
+        "endTime_": 1713055270602,
         "refs_": [],
         "operationName_": "org.apache.dubbo.common.serialize.DefaultSerializationExceptionWrapper.serialize(org.apache.dubbo.common.URL,java.io.OutputStream)",
         "peer_": "",
@@ -50,8 +50,8 @@
       {
         "spanId_": 6,
         "parentSpanId_": 5,
-        "startTime_": 1713031924259,
-        "endTime_": 1713031924259,
+        "startTime_": 1713055270602,
+        "endTime_": 1713055270602,
         "refs_": [],
         "operationName_": "org.apache.dubbo.remoting.exchange.codec.ExchangeCodec.encode(org.apache.dubbo.remoting.Channel,org.apache.dubbo.remoting.buffer.ChannelBuffer,java.la",
         "peer_": "",
@@ -72,8 +72,8 @@
       {
         "spanId_": 5,
         "parentSpanId_": 4,
-        "startTime_": 1713031924259,
-        "endTime_": 1713031924259,
+        "startTime_": 1713055270602,
+        "endTime_": 1713055270602,
         "refs_": [],
         "operationName_": "org.apache.dubbo.remoting.exchange.codec.ExchangeCodec.encode(org.apache.dubbo.remoting.Channel,org.apache.dubbo.remoting.buffer.ChannelBuffer,java.la",
         "peer_": "",
@@ -94,8 +94,8 @@
       {
         "spanId_": 4,
         "parentSpanId_": 3,
-        "startTime_": 1713031924259,
-        "endTime_": 1713031924259,
+        "startTime_": 1713055270602,
+        "endTime_": 1713055270602,
         "refs_": [],
         "operationName_": "org.apache.dubbo.rpc.protocol.dubbo.DubboCountCodec.encode(org.apache.dubbo.remoting.Channel,org.apache.dubbo.remoting.buffer.ChannelBuffer,java.lang.",
         "peer_": "",
@@ -116,8 +116,8 @@
       {
         "spanId_": 3,
         "parentSpanId_": 2,
-        "startTime_": 1713031924259,
-        "endTime_": 1713031924259,
+        "startTime_": 1713055270602,
+        "endTime_": 1713055270602,
         "refs_": [],
         "operationName_": "org.apache.dubbo.rpc.protocol.dubbo.DubboInvoker.doInvoke(org.apache.dubbo.rpc.Invocation)",
         "peer_": "",
@@ -138,8 +138,8 @@
       {
         "spanId_": 12,
         "parentSpanId_": 11,
-        "startTime_": 1713031924289,
-        "endTime_": 1713031924289,
+        "startTime_": 1713055270620,
+        "endTime_": 1713055270620,
         "refs_": [],
         "operationName_": "org.apache.dubbo.common.serialize.fastjson2.FastJson2Serialization.deserialize(org.apache.dubbo.common.URL,java.io.InputStream)",
         "peer_": "",
@@ -160,8 +160,8 @@
       {
         "spanId_": 11,
         "parentSpanId_": 10,
-        "startTime_": 1713031924289,
-        "endTime_": 1713031924289,
+        "startTime_": 1713055270620,
+        "endTime_": 1713055270620,
         "refs_": [],
         "operationName_": "org.apache.dubbo.common.serialize.DefaultSerializationExceptionWrapper.deserialize(org.apache.dubbo.common.URL,java.io.InputStream)",
         "peer_": "",
@@ -182,8 +182,8 @@
       {
         "spanId_": 10,
         "parentSpanId_": 9,
-        "startTime_": 1713031924289,
-        "endTime_": 1713031924289,
+        "startTime_": 1713055270620,
+        "endTime_": 1713055270620,
         "refs_": [],
         "operationName_": "org.apache.dubbo.rpc.protocol.dubbo.DecodeableRpcResult.decode(org.apache.dubbo.remoting.Channel,java.io.InputStream)",
         "peer_": "",
@@ -204,8 +204,8 @@
       {
         "spanId_": 9,
         "parentSpanId_": 2,
-        "startTime_": 1713031924289,
-        "endTime_": 1713031924289,
+        "startTime_": 1713055270620,
+        "endTime_": 1713055270620,
         "refs_": [],
         "operationName_": "org.apache.dubbo.rpc.protocol.dubbo.DecodeableRpcResult.decode()",
         "peer_": "",
@@ -226,8 +226,8 @@
       {
         "spanId_": 2,
         "parentSpanId_": 1,
-        "startTime_": 1713031924259,
-        "endTime_": 1713031924289,
+        "startTime_": 1713055270602,
+        "endTime_": 1713055270620,
         "refs_": [],
         "operationName_": "org.apache.dubbo.rpc.protocol.AbstractInvoker.invoke(org.apache.dubbo.rpc.Invocation)",
         "peer_": "",
@@ -248,8 +248,8 @@
       {
         "spanId_": 1,
         "parentSpanId_": 0,
-        "startTime_": 1713031924259,
-        "endTime_": 1713031924289,
+        "startTime_": 1713055270602,
+        "endTime_": 1713055270620,
         "refs_": [],
         "operationName_": "org.apache.dubbo.rpc.proxy.InvokerInvocationHandler.invoke(java.lang.Object,java.lang.reflect.Method,[Ljava.lang.Object;)",
         "peer_": "",
@@ -270,8 +270,8 @@
       {
         "spanId_": 0,
         "parentSpanId_": -1,
-        "startTime_": 1713031924259,
-        "endTime_": 1713031924289,
+        "startTime_": 1713055270602,
+        "endTime_": 1713055270620,
         "refs_": [],
         "operationName_": "org.apache.dubbo.benchmark.demo.DemoServiceDubboProxy0.sayHello(java.lang.String)",
         "peer_": "",
@@ -291,7 +291,7 @@
       }
     ],
     "service_": "dubbo-samples-benchmark-consumer",
-    "serviceInstance_": "4f3c455587e347d4b9faf2d751267871@172.18.0.6",
+    "serviceInstance_": "7c87816bbbf1412fa7a8846ee3ff7e5e@172.18.0.6",
     "isSizeLimited_": false,
     "memoizedIsInitialized": 1,
     "unknownFields": {
@@ -302,14 +302,14 @@
     "prop": "{\"dubbo.protocol.name\":\"dubbo\"}"
   },
   {
-    "traceId_": "c52d335a7aef41929d3a0ecbac7a9c6a.42.17130325665145751",
-    "traceSegmentId_": "c52d335a7aef41929d3a0ecbac7a9c6a.42.17130325665145750",
+    "traceId_": "c5b98f078e49440f9eb42c76f6228816.28.17130558959348147",
+    "traceSegmentId_": "c5b98f078e49440f9eb42c76f6228816.28.17130558959348146",
     "spans_": [
       {
         "spanId_": 4,
         "parentSpanId_": 3,
-        "startTime_": 1713032566514,
-        "endTime_": 1713032566516,
+        "startTime_": 1713055895934,
+        "endTime_": 1713055895935,
         "refs_": [],
         "operationName_": "com.sun.proxy.$Proxy46.sayHello(java.lang.String)",
         "peer_": "",
@@ -330,8 +330,8 @@
       {
         "spanId_": 3,
         "parentSpanId_": 2,
-        "startTime_": 1713032566514,
-        "endTime_": 1713032566516,
+        "startTime_": 1713055895934,
+        "endTime_": 1713055895935,
         "refs_": [],
         "operationName_": "org.apache.dubbo.rpc.protocol.AbstractProxyProtocol$2.doInvoke(org.apache.dubbo.rpc.Invocation)",
         "peer_": "",
@@ -352,8 +352,8 @@
       {
         "spanId_": 2,
         "parentSpanId_": 1,
-        "startTime_": 1713032566514,
-        "endTime_": 1713032566583,
+        "startTime_": 1713055895934,
+        "endTime_": 1713055895990,
         "refs_": [],
         "operationName_": "org.apache.dubbo.rpc.protocol.AbstractInvoker.invoke(org.apache.dubbo.rpc.Invocation)",
         "peer_": "",
@@ -374,8 +374,8 @@
       {
         "spanId_": 1,
         "parentSpanId_": 0,
-        "startTime_": 1713032566514,
-        "endTime_": 1713032566583,
+        "startTime_": 1713055895934,
+        "endTime_": 1713055895990,
         "refs_": [],
         "operationName_": "org.apache.dubbo.rpc.proxy.InvokerInvocationHandler.invoke(java.lang.Object,java.lang.reflect.Method,[Ljava.lang.Object;)",
         "peer_": "",
@@ -396,8 +396,8 @@
       {
         "spanId_": 0,
         "parentSpanId_": -1,
-        "startTime_": 1713032566514,
-        "endTime_": 1713032566583,
+        "startTime_": 1713055895934,
+        "endTime_": 1713055895990,
         "refs_": [],
         "operationName_": "org.apache.dubbo.benchmark.demo.DemoServiceDubboProxy0.sayHello(java.lang.String)",
         "peer_": "",
@@ -417,7 +417,7 @@
       }
     ],
     "service_": "dubbo-samples-benchmark-consumer",
-    "serviceInstance_": "3e761a0cab3d470e9c8a66c19836ab36@172.20.0.5",
+    "serviceInstance_": "de581c3e36194168a63f71debeff1a3f@172.20.0.5",
     "isSizeLimited_": false,
     "memoizedIsInitialized": 1,
     "unknownFields": {
@@ -428,14 +428,14 @@
     "prop": "{\"dubbo.protocol.name\":\"rmi\"}"
   },
   {
-    "traceId_": "42da4af20edc4168861080cfa486ec80.49.17130322381310345",
-    "traceSegmentId_": "42da4af20edc4168861080cfa486ec80.49.17130322381310344",
+    "traceId_": "15160d4b82f04cc7a846c597a832ee80.42.17130555711970081",
+    "traceSegmentId_": "15160d4b82f04cc7a846c597a832ee80.42.17130555711970080",
     "spans_": [
       {
         "spanId_": 5,
         "parentSpanId_": 4,
-        "startTime_": 1713032238131,
-        "endTime_": 1713032238131,
+        "startTime_": 1713055571197,
+        "endTime_": 1713055571197,
         "refs_": [],
         "operationName_": "org.apache.dubbo.common.serialize.fastjson2.FastJson2Serialization.serialize(org.apache.dubbo.common.URL,java.io.OutputStream)",
         "peer_": "",
@@ -456,8 +456,8 @@
       {
         "spanId_": 4,
         "parentSpanId_": 3,
-        "startTime_": 1713032238131,
-        "endTime_": 1713032238131,
+        "startTime_": 1713055571197,
+        "endTime_": 1713055571197,
         "refs_": [],
         "operationName_": "org.apache.dubbo.common.serialize.DefaultSerializationExceptionWrapper.serialize(org.apache.dubbo.common.URL,java.io.OutputStream)",
         "peer_": "",
@@ -478,8 +478,8 @@
       {
         "spanId_": 3,
         "parentSpanId_": 2,
-        "startTime_": 1713032238131,
-        "endTime_": 1713032238131,
+        "startTime_": 1713055571197,
+        "endTime_": 1713055571197,
         "refs_": [],
         "operationName_": "org.apache.dubbo.rpc.protocol.tri.TripleInvoker.doInvoke(org.apache.dubbo.rpc.Invocation)",
         "peer_": "",
@@ -500,8 +500,8 @@
       {
         "spanId_": 7,
         "parentSpanId_": 6,
-        "startTime_": 1713032238173,
-        "endTime_": 1713032238173,
+        "startTime_": 1713055571231,
+        "endTime_": 1713055571231,
         "refs_": [],
         "operationName_": "org.apache.dubbo.common.serialize.fastjson2.FastJson2Serialization.deserialize(org.apache.dubbo.common.URL,java.io.InputStream)",
         "peer_": "",
@@ -522,8 +522,8 @@
       {
         "spanId_": 6,
         "parentSpanId_": 2,
-        "startTime_": 1713032238173,
-        "endTime_": 1713032238173,
+        "startTime_": 1713055571231,
+        "endTime_": 1713055571231,
         "refs_": [],
         "operationName_": "org.apache.dubbo.common.serialize.DefaultSerializationExceptionWrapper.deserialize(org.apache.dubbo.common.URL,java.io.InputStream)",
         "peer_": "",
@@ -544,8 +544,8 @@
       {
         "spanId_": 2,
         "parentSpanId_": 1,
-        "startTime_": 1713032238131,
-        "endTime_": 1713032238173,
+        "startTime_": 1713055571197,
+        "endTime_": 1713055571231,
         "refs_": [],
         "operationName_": "org.apache.dubbo.rpc.protocol.AbstractInvoker.invoke(org.apache.dubbo.rpc.Invocation)",
         "peer_": "",
@@ -566,8 +566,8 @@
       {
         "spanId_": 1,
         "parentSpanId_": 0,
-        "startTime_": 1713032238131,
-        "endTime_": 1713032238173,
+        "startTime_": 1713055571197,
+        "endTime_": 1713055571231,
         "refs_": [],
         "operationName_": "org.apache.dubbo.rpc.proxy.InvokerInvocationHandler.invoke(java.lang.Object,java.lang.reflect.Method,[Ljava.lang.Object;)",
         "peer_": "",
@@ -588,8 +588,8 @@
       {
         "spanId_": 0,
         "parentSpanId_": -1,
-        "startTime_": 1713032238131,
-        "endTime_": 1713032238173,
+        "startTime_": 1713055571197,
+        "endTime_": 1713055571231,
         "refs_": [],
         "operationName_": "org.apache.dubbo.benchmark.demo.DemoServiceDubboProxy0.sayHello(java.lang.String)",
         "peer_": "",
@@ -609,7 +609,7 @@
       }
     ],
     "service_": "dubbo-samples-benchmark-consumer",
-    "serviceInstance_": "3aa5a27f9cec48318332ab2ad8f64a85@172.19.0.5",
+    "serviceInstance_": "ebcc0974cf6b42028b9c6be076fc9fa4@172.19.0.5",
     "isSizeLimited_": false,
     "memoizedIsInitialized": 1,
     "unknownFields": {
