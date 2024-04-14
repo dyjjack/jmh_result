@@ -24,8 +24,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          repository: 'dyjjack/dubbo-samples'
-          ref: bh-test
+          repository: 'wxbty/dubbo-samples'
+          ref: bh
       - name: Check if directory exists
         run: |
           #!/bin/bash
@@ -44,7 +44,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          repository: 'dyjjack/dubbo'
+          repository: 'wxbty/dubbo'
           path: dubbo
       - name: "Dubbo cache"
         id: dubbo-cache
@@ -93,7 +93,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          repository: 'dyjjack/dubbo-samples'
+          repository: 'wxbty/dubbo-samples'
           ref: bh-test
       - name: "Cache local Maven repository"
         uses: actions/cache@v4
@@ -173,12 +173,12 @@ jobs:
           name: samples-jmh-result
           path: /tmp/jmh*.json
       - name: "Push results to results repository"
-        env:
-          RESULTS_REPO_OWNER: ${{ secrets.PUSH_NAME }}
-          RESULTS_REPO_NAME: ${{ secrets.REPO_NAME }}
-          RESULTS_REPO_BRANCH: ${{ secrets.RESULTS_REPO_BRANCH }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          RESULTS_REPO_OWNER="${{ github.event.client_payload.PUSH_NAME}}"
+          RESULTS_REPO_BRANCH="${{ github.event.client_payload.RESULTS_REPO_BRANCH}}"
+          RESULTS_REPO_NAME="${{ github.event.client_payload.REPO_NAME}}"
+          GITHUB_TOKEN="${{ github.event.client_payload.PUSH_TOKEN}}"
+          
           if ! ls /tmp/jmh_result_prop*.json -1q &> /dev/null; then
             echo "No file matching /tmp/jmh_result_prop*.json exists. Exiting..."
             exit 0
@@ -228,4 +228,5 @@ jobs:
           git add $DIRECTORY_PATH
           git commit -m "Compare prop in $(date +'%Y-%m-%d %H:%M:%S')"
           git pull --rebase
-          git push
+          git push https://${GITHUB_TOKEN}@github.com/${RESULTS_REPO_OWNER}/${RESULTS_REPO_NAME}.git ${RESULTS_REPO_BRANCH}
+
