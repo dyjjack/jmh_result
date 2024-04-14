@@ -24,7 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          repository: 'wxbty/dubbo-samples'
+          repository: 'dyjjack/dubbo-samples'
           ref: bh-test
       - name: Check if directory exists
         run: |
@@ -44,7 +44,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          repository: 'wxbty/dubbo'
+          repository: 'dyjjack/dubbo'
           path: dubbo
       - name: "Dubbo cache"
         id: dubbo-cache
@@ -93,7 +93,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          repository: 'wxbty/dubbo-samples'
+          repository: 'dyjjack/dubbo-samples'
           ref: bh-test
       - name: "Cache local Maven repository"
         uses: actions/cache@v4
