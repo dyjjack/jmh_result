@@ -585,6 +585,7 @@ export default {
                   "prop": prop,
                   "PUSH_NAME": this.PUSH_NAME,
                   "REPO_NAME": this.REPO_NAME,
+                  "PUSH_TOKEN": this.PUSH_TOKEN,
                   "RESULTS_REPO_BRANCH": 'main'
                 }
               }),
