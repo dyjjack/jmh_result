@@ -293,12 +293,12 @@ export default {
         dataZoom: [
           {
             type: 'inside', // 在图表内部拖动缩放
-            start: 80,
+            start: 60,
             end: 100
           },
           {
             type: 'slider', // 有一个滑动条
-            start: 80,
+            start: 60,
             end: 100
           }
         ],
