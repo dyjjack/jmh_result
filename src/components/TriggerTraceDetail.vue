@@ -29,10 +29,11 @@
           </el-col>
         </el-row>
       </el-form>
-      <div class="right-text">
-        <p>
-          这里需要用户自己的github仓库来存储数据。数据仓库可以重新创建，或者使用任意已存在的。我们只需要配置仓库的workflow即可，参考样例：https://github.com/dyjjack/jmh_result（可以直接fokr）。
-          另外，再配置用户的Github Token，保证有权限可以推送</p>
+      <div class="right-text" style="margin: 10px auto;">
+        <el-text style="font-size: 16px; line-height: 1.5; border: 1px solid #ccc; padding: 10px; margin-bottom: 20px;">
+          这里需要用户自己的 GitHub 仓库来存储数据。数据仓库可以重新创建，或者使用任意已存在的。我们只需要配置仓库的 workflow 即可，参考样例：<a href="https://github.com/dyjjack/jmh_result" target="_blank">https://github.com/dyjjack/jmh_result</a>（可以直接 fork）。
+          另外，再配置用户的 GitHub Token，保证有权限可以推送。
+        </el-text>
       </div>
     </div>
 
