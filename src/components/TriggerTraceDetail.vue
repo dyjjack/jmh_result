@@ -1,50 +1,45 @@
 <template>
   <div>
+    <div class="form-layout">
+      <el-form :model="form" label-width="100px" class="left-form">
+        <el-form-item label="仓库地址" prop="repo_url">
+          <el-input v-model="REPO_URL" placeholder="仓库地址"></el-input>
+        </el-form-item>
+
+        <el-form-item label="Github Token" prop="PUSH_TOKEN">
+          <el-input v-model="PUSH_TOKEN" placeholder="token"></el-input>
+        </el-form-item>
+
+        <!-- 使用一个新的form-item来包裹后三个需要放在一行的元素，但这样做并不是标准的。通常，form-item直接放在form下面 -->
+        <el-row :gutter="20" class="form-row">
+          <el-col :span="8">
+            <el-form-item label="左侧配置" prop="leftSelectedOptions" class="form-item-in-row">
+              <el-cascader v-model="leftSelectedOptions" :options="cascaderOptions" clearable></el-cascader>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="右侧配置" prop="rightSelectedOptions" class="form-item-in-row">
+              <el-cascader v-model="rightSelectedOptions" :options="cascaderOptions" clearable></el-cascader>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item class="form-item-in-row">
+              <el-button type="primary" @click="open">开始运行</el-button>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+      <div class="right-text" style="margin: 10px auto;">
+        <el-text style="font-size: 16px; line-height: 1.5; border: 1px solid #ccc; padding: 10px; margin-bottom: 20px;">
+          这里需要用户自己的 GitHub 仓库来存储数据。数据仓库可以重新创建，或者使用任意已存在的。我们只需要配置仓库的 workflow 即可，参考样例：<a href="https://github.com/dyjjack/jmh_result" target="_blank">https://github.com/dyjjack/jmh_result</a>（可以直接 fork）。
+          另外，再配置用户的 GitHub Token，保证有权限可以推送。
+        </el-text>
+      </div>
+    </div>
+
     <el-row>
-      <el-col :span="4">
-        <el-input v-model="PUSH_NAME" placeholder="用户名"></el-input>
-      </el-col>
-
-      <el-col :span="4">
-        <el-input v-model="REPO_NAME" placeholder="仓库名"></el-input>
-      </el-col>
-
-      <el-col :span="4">
-        <el-input v-model="RESULTS_REPO_BRANCH" placeholder="分支"></el-input>
-      </el-col>
 
       <el-col :span="12">
-        <el-input v-model="PUSH_TOKEN" placeholder="token"></el-input>
-      </el-col>
-
-      <el-tooltip content="请把下载的文件放到目标仓库【默认分支】/.github/workflows/下" placement="top" effect="light">
-        <el-button type="primary" @click="open">触发Actions</el-button>
-      </el-tooltip>
-
-      <el-button @click="downloadFile">下载文件</el-button>
-    </el-row>
-
-    <el-row>
-      <el-col :span="6">
-        <span>选择具体配置</span>
-        <el-cascader v-model="leftSelectedOptions"
-                     :options="cascaderOptions"
-                     clearable>
-
-        </el-cascader>
-        <div id="TriggerP99" style="width:100%;height:400px"></div>
-      </el-col>
-      <el-col :span="6">
-        <span>选择具体配置</span>
-        <el-cascader v-model="rightSelectedOptions"
-                     :options="cascaderOptions"
-                     clearable>
-
-        </el-cascader>
-        <div id="TriggerQps" style="width:100%;height:400px"></div>
-      </el-col>
-
-      <el-col :span="6">
         <el-header>
           <h1 style="overflow: hidden;  white-space: nowrap;  text-overflow: ellipsis">{{ leftTableTitle }}</h1>
         </el-header>
@@ -57,12 +52,12 @@
             default-expand-all
             :tree-props="{children: 'children'}"
         >
-          <el-table-column prop="operationName_" label="方法名" min-width="90%"></el-table-column>
-          <el-table-column prop="cost" label="耗时（ms）" min-width="10%"></el-table-column>
+          <el-table-column prop="operationName_" label="方法名" min-width="88%"></el-table-column>
+          <el-table-column prop="cost" label="耗时（ms）" min-width="12%"></el-table-column>
         </el-table>
       </el-col>
 
-      <el-col :span="6">
+      <el-col :span="12">
         <el-header>
           <h1>{{ rightTableTitle }}</h1>
         </el-header>
@@ -75,8 +70,8 @@
             default-expand-all
             :tree-props="{children: 'children'}"
         >
-          <el-table-column prop="operationName_" label="方法名" min-width="90%"></el-table-column>
-          <el-table-column prop="cost" label="耗时（ms）" min-width="10%"></el-table-column>
+          <el-table-column prop="operationName_" label="方法名" min-width="88%"></el-table-column>
+          <el-table-column prop="cost" label="耗时（ms）" min-width="12%"></el-table-column>
         </el-table>
       </el-col>
     </el-row>
@@ -88,9 +83,9 @@ export default {
   name: 'TriggerTraceDetail',
   data() {
     return {
+      REPO_URL: null,
       PUSH_NAME: null,
       REPO_NAME: null,
-      RESULTS_REPO_BRANCH: null,
       PUSH_TOKEN: null,
 
       triggerTable: [],
@@ -221,17 +216,16 @@ export default {
       this.message = localStorage.getItem('myMessage') || ''
       this.PUSH_NAME = localStorage.getItem('PUSH_NAME') || ''
       this.REPO_NAME = localStorage.getItem('REPO_NAME') || ''
-      this.RESULTS_REPO_BRANCH = localStorage.getItem('RESULTS_REPO_BRANCH') || ''
       this.PUSH_TOKEN = localStorage.getItem('PUSH_TOKEN') || ''
 
 
-      if (this.PUSH_NAME && this.REPO_NAME && this.RESULTS_REPO_BRANCH) {
+      if (this.PUSH_NAME && this.REPO_NAME) {
         let jmh;
 
         this.$.ajax({
           type: "GET",
           async: false,
-          url: "https://raw.githubusercontent.com/" + this.PUSH_NAME + "/" + this.REPO_NAME + "/" + this.RESULTS_REPO_BRANCH + "/merged_prop_results.json",
+          url: "https://raw.githubusercontent.com/" + this.PUSH_NAME + "/" + this.REPO_NAME + "/main/merged_prop_results.json",
           success: function (res) {
             jmh = res
           }
@@ -434,13 +428,13 @@ export default {
     },
     initTable() {
 
-      if (this.PUSH_NAME && this.REPO_NAME && this.RESULTS_REPO_BRANCH) {
+      if (this.PUSH_NAME && this.REPO_NAME) {
         let jmh;
 
         this.$.ajax({
           type: "GET",
           async: false,
-          url: "https://raw.githubusercontent.com/" + this.PUSH_NAME + "/" + this.REPO_NAME + "/" + this.RESULTS_REPO_BRANCH + "/merged_prop_traces.json",
+          url: "https://raw.githubusercontent.com/" + this.PUSH_NAME + "/" + this.REPO_NAME + "/main/merged_prop_traces.json",
           success: function (res) {
             jmh = res
           }
@@ -499,27 +493,6 @@ export default {
         this.$message({
           type: 'warning',
           message: '请选择至少一个'
-        });
-        return
-      }
-      if (!this.PUSH_NAME) {
-        this.$message({
-          type: 'warning',
-          message: '用户名为空'
-        });
-        return
-      }
-      if (!this.REPO_NAME) {
-        this.$message({
-          type: 'warning',
-          message: '仓库名为空'
-        });
-        return
-      }
-      if (!this.RESULTS_REPO_BRANCH) {
-        this.$message({
-          type: 'warning',
-          message: '分支为空'
         });
         return
       }
@@ -586,10 +559,25 @@ export default {
 
             instance.confirmButtonLoading = true;
             instance.confirmButtonText = '执行中...';
+
+            const gitUrlPattern = /^https:\/\/github\.com\/([^/]+)\/([^/]+)\.git$/; // 正则表达式匹配带.git后缀的GitHub仓库URL
+            const match = this.REPO_URL.match(gitUrlPattern);
+            if (match) {
+              this.PUSH_NAME = match[1]; // 用户名是第一个捕获组
+              this.REPO_NAME = match[2]; // 仓库名是第二个捕获组
+            } else {
+              this.PUSH_NAME = '';
+              this.REPO_NAME = '';
+              this.$message({
+                type: 'error',
+                message: '输入的URL格式不正确，请确保它是带有.git后缀的GitHub仓库URL'
+              });
+            }
+
             this.$.ajax({
               url: "https://api.github.com/repos/" + this.PUSH_NAME + "/" + this.REPO_NAME + "/dispatches",
               type: "POST",
-              beforeSend: (xhr)=> {
+              beforeSend: (xhr) => {
                 xhr.setRequestHeader("Authorization", "Basic " + btoa("username:" + this.PUSH_TOKEN));
                 xhr.setRequestHeader("Content-Type", "application/json");
                 xhr.setRequestHeader("Accept", "application/vnd.github.everest-preview+json");
@@ -600,13 +588,13 @@ export default {
                   "prop": prop,
                   "PUSH_NAME": this.PUSH_NAME,
                   "REPO_NAME": this.REPO_NAME,
-                  "RESULTS_REPO_BRANCH": this.RESULTS_REPO_BRANCH
+                  "PUSH_TOKEN": this.PUSH_TOKEN,
+                  "RESULTS_REPO_BRANCH": 'main'
                 }
               }),
 
               PUSH_NAME: null,
               REPO_NAME: null,
-              RESULTS_REPO_BRANCH: null,
               PUSH_TOKEN: null,
 
               success: (data) => {
@@ -614,7 +602,6 @@ export default {
                 console.log("Success:", data);
                 localStorage.setItem('PUSH_NAME', this.PUSH_NAME)
                 localStorage.setItem('REPO_NAME', this.REPO_NAME)
-                localStorage.setItem('RESULTS_REPO_BRANCH', this.RESULTS_REPO_BRANCH)
                 localStorage.setItem('PUSH_TOKEN', this.PUSH_TOKEN)
                 done();
               },
@@ -680,5 +667,37 @@ li {
 
 a {
   color: #42b983;
+}
+
+.form-layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* 根据需要调整垂直对齐方式 */
+}
+
+.left-form {
+  flex: 1; /* 占据剩余空间的一部分 */
+  max-width: calc(50% - 20px); /* 假设两边间隔为20px，则左侧表单最大宽度为50%减去间隔 */
+  margin-right: 20px; /* 右边距，与.right-text保持间隔 */
+}
+
+.right-text {
+  flex-shrink: 0; /* 防止.right-text被压缩 */
+  width: calc(50% - 20px); /* 右侧文本区域宽度 */
+  /* 其他样式，如字体大小、颜色等 */
+}
+
+.left-form .el-form-item__label {
+  text-align: left; /* 确保标签左对齐 */
+}
+
+.left-form .el-row {
+  display: flex; /* 使用Flexbox布局 */
+  align-items: center; /* 垂直居中 */
+}
+
+.left-form .el-col {
+  display: flex;
+  flex-direction: column; /* 子元素垂直排列 */
 }
 </style>
