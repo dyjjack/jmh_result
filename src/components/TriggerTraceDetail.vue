@@ -6,7 +6,7 @@
           <el-input v-model="REPO_URL" placeholder="仓库地址"></el-input>
         </el-form-item>
 
-        <el-form-item label="Token" prop="PUSH_TOKEN">
+        <el-form-item label="Github Token" prop="PUSH_TOKEN">
           <el-input v-model="PUSH_TOKEN" placeholder="token"></el-input>
         </el-form-item>
 
@@ -30,14 +30,13 @@
         </el-row>
       </el-form>
       <div class="right-text">
-        <p>这里是一段文字介绍</p>
+        <p>这里需要用户自己的github仓库来存储数据。数据仓库可以重新创建，或者使用任意已存在的。我们只需要在仓库的</p>
       </div>
     </div>
 
     <el-row>
 
-
-      <el-col :span="6">
+      <el-col :span="12">
         <el-header>
           <h1 style="overflow: hidden;  white-space: nowrap;  text-overflow: ellipsis">{{ leftTableTitle }}</h1>
         </el-header>
@@ -50,12 +49,12 @@
             default-expand-all
             :tree-props="{children: 'children'}"
         >
-          <el-table-column prop="operationName_" label="方法名" min-width="90%"></el-table-column>
-          <el-table-column prop="cost" label="耗时（ms）" min-width="10%"></el-table-column>
+          <el-table-column prop="operationName_" label="方法名" min-width="88%"></el-table-column>
+          <el-table-column prop="cost" label="耗时（ms）" min-width="12%"></el-table-column>
         </el-table>
       </el-col>
 
-      <el-col :span="6">
+      <el-col :span="12">
         <el-header>
           <h1>{{ rightTableTitle }}</h1>
         </el-header>
@@ -68,8 +67,8 @@
             default-expand-all
             :tree-props="{children: 'children'}"
         >
-          <el-table-column prop="operationName_" label="方法名" min-width="90%"></el-table-column>
-          <el-table-column prop="cost" label="耗时（ms）" min-width="10%"></el-table-column>
+          <el-table-column prop="operationName_" label="方法名" min-width="88%"></el-table-column>
+          <el-table-column prop="cost" label="耗时（ms）" min-width="12%"></el-table-column>
         </el-table>
       </el-col>
     </el-row>
