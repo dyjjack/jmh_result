@@ -227,6 +227,10 @@ export default {
 
     createSpanTree(spans) {
       console.log(spans)
+      if(!spans){
+        console.error("spans is null")
+        return []
+      }
       let spanMap = new Map();
       let rootSpans = [];
 
@@ -349,6 +353,9 @@ export default {
       if (type === 'serialization') {
         let leftSerializationFilter = this.serializationTable.find(item => value[0] === JSON.parse(item.prop)['dubbo.protocol.serialization']);
         let rightSerializationFilter = this.serializationTable.find(item => value[1] === JSON.parse(item.prop)['dubbo.protocol.serialization']);
+
+        console.log("leftSerializationFilter", leftSerializationFilter)
+        console.log("rightSerializationFilter", rightSerializationFilter)
 
         this.leftTableDate = leftSerializationFilter ? this.createSpanTree(leftSerializationFilter.spans_) : []
         this.rightTableDate = rightSerializationFilter ? this.createSpanTree(rightSerializationFilter.spans_) : []
