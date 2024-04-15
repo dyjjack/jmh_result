@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="form-layout">
-      <el-form :model="form" label-width="100px" class="left-form">
+      <el-form label-width="100px" class="left-form">
         <el-form-item label="仓库地址" prop="repo_url">
           <el-input v-model="REPO_URL" placeholder="仓库地址"></el-input>
         </el-form-item>
@@ -30,16 +30,21 @@
         </el-row>
       </el-form>
       <div class="right-text" style="margin: 10px auto;">
-        <el-text style="font-size: 16px; line-height: 1.5; border: 1px solid #ccc; padding: 10px; margin-bottom: 20px;">
+        <text style="font-size: 16px; line-height: 1.5; border: 1px solid #ccc; padding: 10px; margin-bottom: 20px;">
           这里需要用户自己的 GitHub 仓库来存储数据。数据仓库可以重新创建，或者使用任意已存在的。我们只需要配置仓库的 workflow 即可，参考样例：<a href="https://github.com/wxbty/jmh_result" target="_blank">https://github.com/wxbty/jmh_result</a>（可以直接 fork）。
           另外，再配置用户的 GitHub Token，保证有权限可以推送。
-        </el-text>
+        </text>
       </div>
     </div>
 
     <el-row>
-
-      <el-col :span="12">
+      <el-col :span="6">
+        <div id="TriggerP99" style="width:100%;height:400px"></div>
+      </el-col>
+      <el-col :span="6">
+        <div id="TriggerQps" style="width:100%;height:400px"></div>
+      </el-col>
+      <el-col :span="6">
         <el-header>
           <h1 style="overflow: hidden;  white-space: nowrap;  text-overflow: ellipsis">{{ leftTableTitle }}</h1>
         </el-header>
@@ -52,12 +57,12 @@
             default-expand-all
             :tree-props="{children: 'children'}"
         >
-          <el-table-column prop="operationName_" label="方法名" min-width="88%"></el-table-column>
-          <el-table-column prop="cost" label="耗时（ms）" min-width="12%"></el-table-column>
+          <el-table-column prop="operationName_" label="方法名" min-width="82%"></el-table-column>
+          <el-table-column prop="cost" label="耗时（ms）" min-width="18%"></el-table-column>
         </el-table>
       </el-col>
 
-      <el-col :span="12">
+      <el-col :span="6">
         <el-header>
           <h1>{{ rightTableTitle }}</h1>
         </el-header>
@@ -70,8 +75,8 @@
             default-expand-all
             :tree-props="{children: 'children'}"
         >
-          <el-table-column prop="operationName_" label="方法名" min-width="88%"></el-table-column>
-          <el-table-column prop="cost" label="耗时（ms）" min-width="12%"></el-table-column>
+          <el-table-column prop="operationName_" label="方法名" min-width="82%"></el-table-column>
+          <el-table-column prop="cost" label="耗时（ms）" min-width="18%"></el-table-column>
         </el-table>
       </el-col>
     </el-row>
@@ -191,6 +196,8 @@ export default {
   mounted() {
     try {
       this.init();
+      this.sampleEcharts();
+      this.thrptEcharts();
     } catch (error) {
       console.error("init：", error);
     }
@@ -199,21 +206,11 @@ export default {
     } catch (error) {
       console.error("initTable：", error);
     }
-    try {
-      this.sampleEcharts();
-    } catch (error) {
-      console.error("sampleEcharts：", error);
-    }
-    try {
-      this.thrptEcharts();
-    } catch (error) {
-      console.error("thrptEcharts：", error);
-    }
   },
 
   methods: {
     init() {
-      this.message = localStorage.getItem('myMessage') || ''
+      this.REPO_URL = localStorage.getItem('REPO_URL') || ''
       this.PUSH_NAME = localStorage.getItem('PUSH_NAME') || ''
       this.REPO_NAME = localStorage.getItem('REPO_NAME') || ''
       this.PUSH_TOKEN = localStorage.getItem('PUSH_TOKEN') || ''
@@ -221,6 +218,13 @@ export default {
 
       if (this.PUSH_NAME && this.REPO_NAME) {
         let jmh;
+
+        const gitUrlPattern = /^https:\/\/github\.com\/([^/]+)\/([^/]+)\.git$/; // 正则表达式匹配带.git后缀的GitHub仓库URL
+        const match = this.REPO_URL.match(gitUrlPattern);
+        if (match) {
+          this.PUSH_NAME = match[1]; // 用户名是第一个捕获组
+          this.REPO_NAME = match[2]; // 仓库名是第二个捕获组
+        }
 
         this.$.ajax({
           type: "GET",
@@ -235,6 +239,7 @@ export default {
           this.resultList = JSON.parse(jmh);
         } catch (error) {
           console.error("解析JMH结果字符串出错：", error);
+          throw error;
         }
       }
     },
@@ -503,6 +508,13 @@ export default {
         });
         return
       }
+      if (!this.REPO_URL) {
+        this.$message({
+          type: 'warning',
+          message: '仓库地址为空'
+        });
+        return
+      }
 
       let leftRpc = null;
       let leftSerialization = null;
@@ -603,6 +615,7 @@ export default {
                 localStorage.setItem('PUSH_NAME', this.PUSH_NAME)
                 localStorage.setItem('REPO_NAME', this.REPO_NAME)
                 localStorage.setItem('PUSH_TOKEN', this.PUSH_TOKEN)
+                localStorage.setItem('REPO_URL', this.REPO_URL)
                 done();
               },
               error: (xhr, status, error) => {
@@ -629,21 +642,6 @@ export default {
           message: '已取消'
         });
       });
-    },
-
-    downloadFile() {
-      // 文件的公开路径应与你放置在 public 目录中的相对位置匹配
-      const publicPath = '/trigger-sample-benchmark.yml';
-      // 重要提示：BASE_URL 是项目的基础 URL，如果你的项目部署在子路径下，此变量将包含该子路径
-      const downloadLink = `${process.env.BASE_URL}${publicPath}`;
-
-      // 以动态创建的 <a> 标签方式进行下载
-      const link = document.createElement('a');
-      link.href = downloadLink;
-      link.setAttribute('download', 'trigger-sample-benchmark.yml');  // 设置下载的文件名
-      document.body.appendChild(link);
-      link.click(); // 触发下载
-      document.body.removeChild(link); // 删除创建的链接
     }
   }
 }

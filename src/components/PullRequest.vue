@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="PullRequestSample" style="width:100%;height:400px"></div>
-    <div id="PullRequestThrpt" style="width:100%;height:400px"></div>
+    <div id="PullRequestThrpt" style="width:100%;height:400px;margin-top: 60px"></div>
   </div>
 </template>
 

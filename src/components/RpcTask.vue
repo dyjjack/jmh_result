@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="RpcTaskP99" style="width:100%;height:400px"></div>
-    <div id="RpcTaskQPS" style="width:100%;height:400px"></div>
+    <div id="RpcTaskQPS" style="width:100%;height:400px;margin-top: 60px"></div>
   </div>
 </template>
 

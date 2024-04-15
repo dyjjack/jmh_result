@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="SerializationTaskP99" style="width:100%;height:400px"></div>
-    <div id="SerializationTaskQPS" style="width:100%;height:400px"></div>
+    <div id="SerializationTaskQPS" style="width:100%;height:400px;margin-top: 60px"></div>
   </div>
 </template>
 
