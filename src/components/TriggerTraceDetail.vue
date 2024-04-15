@@ -32,10 +32,9 @@
       <div class="right-text">
         <div
             style="font-size: 16px; line-height: 1.5; border: 1px solid #ccc; padding: 10px; margin-bottom: 20px; text-decoration: none; text-align: left;">
-          <p style="text-align: left;">这里需要用户自己的 GitHub 仓库来存储数据。数据仓库可以重新创建，或者使用任意已存在的。我们只需要配置仓库的
-            workflow 即可，参考样例：<a href="https://github.com/wxbty/jmh_result" target="_blank">https://github.com/wxbty/jmh_result</a>（可以直接
-            fork）。
-            另外，再配置用户的 GitHub Token，保证有权限可以推送。</p>
+          <p style="text-align: left;">用户需提供一个自己的GitHub仓库来存储数据，可以新创建一个，
+            也可使用现有的。您只需要参照示例仓库（<a href="https://github.com/dyjjack/jmh_result" target="_blank">jmh_result</a>可直接fork）
+            的workflow的配置即可。此外，为确保有权限推送数据，还需配置用户的GitHub Token。</p>
         </div>
       </div>
     </div>
