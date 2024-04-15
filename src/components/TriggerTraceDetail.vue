@@ -41,10 +41,10 @@
 
     <el-row>
       <el-col :span="6">
-        <div id="TriggerP99" style="width:100%;height:400px"></div>
+        <div id="TriggerP99" style="width:100%;height:400px;margin-top: 30px"></div>
       </el-col>
       <el-col :span="6">
-        <div id="TriggerQps" style="width:100%;height:400px"></div>
+        <div id="TriggerQps" style="width:100%;height:400px;margin-top: 30px"></div>
       </el-col>
       <el-col :span="6">
         <el-header>

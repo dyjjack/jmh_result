@@ -1,6 +1,13 @@
 <template>
   <div>
     <el-row>
+      <el-col :span="24">
+        <div style="font-size: 15px; text-align: left; margin-top: 50px">
+          <h2>方法链路耗时对比</h2>
+        </div>
+      </el-col>
+    </el-row>
+    <el-row>
       <el-col :span="6">
         <span>选择两个配置对比</span>
         <el-cascader :show-all-levels="false"
@@ -115,19 +122,19 @@ export default {
         }, {
           value: 'fastjson2',
           label: 'Fastjson2'
-        },{
+        }, {
           value: 'fastjson',
           label: 'Fastjson'
-        },{
+        }, {
           value: 'avro',
           label: 'Avro'
-        },{
+        }, {
           value: 'fst',
           label: 'Fst'
-        },{
+        }, {
           value: 'gson',
           label: 'Gson'
-        },{
+        }, {
           value: 'kryo',
           label: 'Kryo'
         }, {
@@ -157,19 +164,19 @@ export default {
         }, {
           value: 'fastjson2',
           label: 'Fastjson2'
-        },{
+        }, {
           value: 'fastjson',
           label: 'Fastjson'
-        },{
+        }, {
           value: 'avro',
           label: 'Avro'
-        },{
+        }, {
           value: 'fst',
           label: 'Fst'
-        },{
+        }, {
           value: 'gson',
           label: 'Gson'
-        },{
+        }, {
           value: 'kryo',
           label: 'Kryo'
         }, {
@@ -227,7 +234,7 @@ export default {
 
     createSpanTree(spans) {
       console.log(spans)
-      if(!spans){
+      if (!spans) {
         console.error("spans is null")
         return []
       }
