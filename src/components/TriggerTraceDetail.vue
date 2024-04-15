@@ -232,7 +232,7 @@ export default {
         this.$.ajax({
           type: "GET",
           async: false,
-          url: "https://raw.githubusercontent.com/" + this.PUSH_NAME + "/" + this.REPO_NAME + "/main/merged_prop_results.json",
+          url: "https://raw.githubusercontent.com/" + this.PUSH_NAME + "/" + this.REPO_NAME + "/main/test-results/scenario/merged_prop_results.json",
           success: function (res) {
             jmh = res
           }
@@ -442,14 +442,14 @@ export default {
         this.$.ajax({
           type: "GET",
           async: false,
-          url: "https://raw.githubusercontent.com/" + this.PUSH_NAME + "/" + this.REPO_NAME + "/main/merged_prop_traces.json",
+          url: "https://raw.githubusercontent.com/" + this.PUSH_NAME + "/" + this.REPO_NAME + "/main/test-results/scenario/merged_prop_traces.json",
           success: function (res) {
             jmh = res
           }
         });
 
         try {
-          this.resultList = JSON.parse(jmh);
+          this.triggerTable = JSON.parse(jmh);
         } catch (error) {
           console.error("解析JMH结果字符串出错：", error);
         }
